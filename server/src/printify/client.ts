@@ -182,7 +182,7 @@ class PrintifyClient {
         pagination: {
             limit: number;
             page: number;
-        } = { limit: 10, page: 1 }
+        } = { limit: 6, page: 1 }
     ) {
         const data = await this.callApi<GetAllProductsResponse>({
             method: "GET",

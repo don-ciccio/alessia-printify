@@ -1,0 +1,167 @@
+---
+export const formatCurrency = (amount = 0, currency = "EUR") =>
+    new Intl.NumberFormat("it-IT", {
+        style: "currency",
+        currency,
+    }).format(amount / 100);
+
+export type ProductOptionBase = {
+    name: string;
+};
+
+export type ColorOption = ProductOptionBase & {
+    type: "color";
+    values: {
+        id: number;
+        title: string;
+        colors: string[];
+    }[];
+};
+
+export type BasicOption = ProductOptionBase & {
+    type: string;
+    values: {
+        id: number;
+        title: string;
+    }[];
+};
+
+export type ProductOption = ColorOption | BasicOption;
+
+export interface ProductVariant {
+    id: number;
+    sku?: string;
+    price: number;
+    cost?: number;
+    title?: string;
+    grams?: number;
+    is_enabled?: boolean;
+    is_default?: boolean;
+    is_available?: boolean;
+    is_printify_express_eligible?: boolean;
+    options?: number[];
+    /**
+     * This is not documented on the Printify's official documentation but was found to part of the responses.
+     */
+    quantity?: number;
+}
+
+type Product = {
+    id: string;
+    title: string;
+    description: string;
+    tags: string[];
+    options: ProductOption[];
+    variants: ProductVariant[];
+    images: {
+        src: string;
+        variant_ids: number[];
+        position: string;
+        is_default: boolean;
+    }[];
+    created_at: string;
+    updated_at: string;
+    visible: boolean;
+    is_locked: boolean;
+    is_printify_express_eligible: boolean;
+    is_printify_express_enabled: boolean;
+    is_economy_shipping_eligible: boolean;
+    is_economy_shipping_enabled: boolean;
+    blueprint_id: number;
+    user_id: number;
+    shop_id: number;
+    print_provider_id: number;
+    print_areas: {
+        variant_ids: number[];
+        placeholders: {
+            position: string;
+            images: {
+                id: string;
+                name: string;
+                type: string;
+                height: number;
+                width: number;
+                x: number;
+                y: number;
+                scale: number;
+                angle: number;
+            }[];
+        }[];
+        /**
+         * Background HEX color
+         */
+        background: string;
+    }[];
+    sales_channel_properties: unknown[];
+};
+interface ProductGrid {
+    current_page: number;
+    data: Product[];
+}
+// constants
+const URL = "http://localhost:5211";
+
+const response = await fetch(`${URL}/api/products`, {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+let products: Product[];
+const data: ProductGrid = await response.json();
+products = data.data;
+---
+
+<section
+    class='w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5'
+>
+    <!--   ✅ Product card 1 - Starts Here 👇 -->
+    {
+        products.map((product) => (
+            <div class='w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl'>
+                <a href='#'>
+                    <img
+                        src={product.images[0].src}
+                        alt={product.title}
+                        class='h-80 w-72 object-cover rounded-t-xl'
+                    />
+                    <div class='px-4 py-3 w-72'>
+                        <span class='text-gray-400 mr-3 uppercase text-xs'>
+                            {product.tags[0]}
+                        </span>
+                        <p class='text-lg font-bold text-black truncate block capitalize'>
+                            {product.title}
+                        </p>
+                        <div class='flex items-center'>
+                            <p class='text-lg font-semibold text-black cursor-auto my-3'>
+                                {formatCurrency(product.variants[0].price)}
+                            </p>
+
+                            <div class='ml-auto'>
+                                <svg
+                                    xmlns='http://www.w3.org/2000/svg'
+                                    width='20'
+                                    height='20'
+                                    fill='currentColor'
+                                    class='bi bi-bag-plus'
+                                    viewBox='0 0 16 16'
+                                >
+                                    <path
+                                        fill-rule='evenodd'
+                                        d='M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z'
+                                    />
+                                    <path d='M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z' />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        ))
+    }
+
+    <!--   🛑 Product card 1 - Ends Here  -->
+</section>
+
+<!-- 🛑 Grid Section - Ends Here -->

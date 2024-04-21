@@ -27,6 +27,16 @@ controller
 
         const { data } = await client.getAllProducts(shop[0].id);
         res.send(data);
+    })
+    .get("/products/:id", async (req: Request, res: Response) => {
+        const { data: shop } = await client.getShops();
+
+        if (!shop) {
+            return res.status(400).send({ message: "Products not found" });
+        }
+
+        const { data } = await client.getProductById(shop[0].id, req.params.id);
+        res.send(data);
     });
 
 export default controller;

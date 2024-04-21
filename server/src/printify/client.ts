@@ -112,6 +112,7 @@ export type PaginatedResponse<TData> = {
 };
 
 export type GetAllProductsResponse = PaginatedResponse<Product>;
+export type GetProductResponse = Product;
 
 export type GetShopsResponse = {
     id: number;
@@ -191,6 +192,14 @@ class PrintifyClient {
                 limit: pagination.limit.toString(),
                 page: pagination.page.toString(),
             },
+        });
+        return data;
+    }
+
+    async getProductById(shopId: number, productId: string) {
+        const data = await this.callApi<GetProductResponse>({
+            method: "GET",
+            path: `/shops/${shopId}/products/${productId}.json`,
         });
         return data;
     }

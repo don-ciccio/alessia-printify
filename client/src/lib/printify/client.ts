@@ -48,7 +48,7 @@ export interface ProductVariant {
     quantity?: number;
 }
 
-type Product = {
+export type Product = {
     id: string;
     title: string;
     description: string;

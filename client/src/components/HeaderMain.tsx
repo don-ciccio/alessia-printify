@@ -1,15 +1,31 @@
-import React from "react";
-import { BiUser } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 
-const HeaderMain = () => {
+async function getData() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+}
+
+const HeaderMain = async () => {
+    const data = await getData();
+
     return (
         <div className='border-b border-gray-200 py-6'>
             <div className='container sm:flex justify-between items-center'>
                 <div className='font-bold text-3xl text-center pb-4 sm:pb-0 text-blackish'>
-                    Lazy Mondays Co.
+                    {data[0].title}
                 </div>
                 <div className='w-full sm:w-[300px] md:w-[50%] relative'>
                     <input
@@ -23,7 +39,6 @@ const HeaderMain = () => {
                     />
                 </div>
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>
-                    <BiUser size={28} />
                     <div className='relative'>
                         <FiHeart size={28} />
                         <div className='bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[13px] text-white grid place-items-center translate-x-1 -translate-y-1'>

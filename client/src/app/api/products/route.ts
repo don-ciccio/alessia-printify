@@ -25,7 +25,10 @@ export async function GET() {
         });
     }
 
-    const { data, error } = await client.getAllProducts(shops[0]?.id);
+    const { data, error } = await client.getAllProducts(shops[0]?.id, {
+        page: 1,
+        limit: 9,
+    });
 
     if (!data) {
         return NextResponse.json({ message: error?.message, status: 400 });

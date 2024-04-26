@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import MobNavbar from "@/components/MobNavbar";
+import Footer from "@/components/Footer";
 
 const Bricolage = Bricolage_Grotesque({
     subsets: ["latin"],
@@ -28,7 +30,9 @@ export default function RootLayout({
                 <HeaderTop />
                 <HeaderMain />
                 <Navbar />
+                <MobNavbar />
                 {children}
+                <Footer />
             </body>
         </html>
     );

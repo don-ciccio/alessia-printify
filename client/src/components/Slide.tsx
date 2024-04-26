@@ -10,7 +10,7 @@ interface propsType {
 const Slide: React.FC<propsType> = ({ img, title, mainTitle, price }) => {
     return (
         <div className='outline-none border-none relative'>
-            <div className='absolute right-[30px] md:right-[70px] max-w-[250px] sm:max-w-[350px] top-[50%] -translate-y-[50%] space-y-2 lg:space-y-4 bg-whitetrasparent sm:bg-transparent p-4 sm:p-0 rounded-lg sm:rounded-none'>
+            <div className='absolute right-[30px] md:right-[70px] max-w-[250px] sm:max-w-[350px] top-[50%] -translate-y-[50%] space-y-2 lg:space-y-4 bg-[#ffffffa2] sm:bg-transparent p-4 sm:p-0 rounded-lg sm:rounded-none'>
                 <h3 className='text-accent text-[24px] lg:text-[28px] '>
                     {title}
                 </h3>
@@ -33,6 +33,7 @@ const Slide: React.FC<propsType> = ({ img, title, mainTitle, price }) => {
                 alt='banner'
                 width={2000}
                 height={2000}
+                priority
             />
         </div>
     );

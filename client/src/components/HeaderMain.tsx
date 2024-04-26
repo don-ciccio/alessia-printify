@@ -1,6 +1,7 @@
 import { BsSearch } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
-import { HiOutlineShoppingBag } from "react-icons/hi";
+import Link from "next/link";
+import CartDrawer from "./CartDrawer";
 
 async function getData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api`, {
@@ -24,9 +25,12 @@ const HeaderMain = async () => {
     return (
         <div className='border-b border-gray-200 py-6'>
             <div className='container sm:flex justify-between items-center'>
-                <div className='font-bold text-3xl text-center pb-4 sm:pb-0 text-blackish'>
+                <Link
+                    href={"/"}
+                    className='font-bold text-3xl text-center pb-4 sm:pb-0 text-blackish hover:text-accent cursor-pointer'
+                >
                     {data[0].title}
-                </div>
+                </Link>
                 <div className='w-full sm:w-[300px] md:w-[50%] relative'>
                     <input
                         className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-2 ring-accent'
@@ -41,16 +45,11 @@ const HeaderMain = async () => {
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>
                     <div className='relative'>
                         <FiHeart size={28} />
-                        <div className='bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[13px] text-white grid place-items-center translate-x-1 -translate-y-1'>
+                        <div className='bg-accent rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[13px] text-white grid place-items-center translate-x-1 -translate-y-1'>
                             0
                         </div>
                     </div>
-                    <div className='relative'>
-                        <HiOutlineShoppingBag size={28} />
-                        <div className='bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[13px] text-white grid place-items-center translate-x-1 -translate-y-1'>
-                            0
-                        </div>
-                    </div>
+                    <CartDrawer />
                 </div>
             </div>
         </div>

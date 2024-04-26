@@ -22,7 +22,7 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
 
     const cartItems = useStore(cart);
 
-    const [qty, setQty] = useState<string | number>("1");
+    const [qty, setQty] = useState<string | number>(1);
 
     const handleAddToCart = useCallback(
         async (quantity: string | number, selectedVariant: string) => {
@@ -56,19 +56,19 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
         <div className='mt-8'>
             <h3 className='text-lg font-bold'>Sizes</h3>
             <div className='flex flex-wrap gap-4 mt-4'>
-                <div className='relative z-20 bg-transparent w-full'>
+                <div className='relative bg-transparent w-full'>
                     <select
                         className='w-full appearance-none row-start-1 col-start-1 bg-slate-50 border focus:ring-2 ring-accent rounded-lg p-2 outline-none cursor-pointer'
                         onChange={(e) => onChangeProductVariant(e)}
                     >
                         {variants?.map((variant) => (
                             <option key={variant.id} value={variant.id}>
-                                {variant.title} ({formatCurrency(variant.price)}
-                                )
+                                {variant.title} {"  ("}
+                                {formatCurrency(variant.price)})
                             </option>
                         ))}
                     </select>
-                    <span className='absolute top-1/2 right-4 z-30 -translate-y-1/2'>
+                    <span className='absolute top-1/2 right-4 -translate-y-1/2'>
                         <svg
                             className='fill-current'
                             width='24'

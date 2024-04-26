@@ -50,23 +50,31 @@ export const addToCart = async (
         const availibleVariant = productResponse?.variants.filter(
             (variant) => variant.id === variant_id
         );
-        console.log(availibleVariant);
+
         // Define cart items from state
         const cartItems = cart?.get() || [];
 
         // Get existing cart iytem
         const existingCartItem = cartItems?.find(
-            (item) => item.id === productResponse?.id
+            (item) =>
+                item.id === productResponse?.id &&
+                availibleVariant?.find(
+                    (variant) => variant.id === item.variant_id
+                )
         );
-
+        console.log(existingCartItem);
         // Selected Cart item has been previously selected
         if (existingCartItem) {
             // Update the existing item's quantity
-            const updatedCartItem = { ...existingCartItem, quantity };
-
+            const updatedCartItem = {
+                ...existingCartItem,
+                quantity: existingCartItem.quantity + 1,
+            };
+            console.log(existingCartItem.quantity);
             // Update the list of cart items with the modified cart item
             const updatedCartItems = cartItems?.map((cartItem) =>
-                cartItem?.id === existingCartItem.id
+                cartItem?.id === existingCartItem.id &&
+                cartItem?.variant_id === existingCartItem.variant_id
                     ? updatedCartItem
                     : cartItem
             );
@@ -85,7 +93,7 @@ export const addToCart = async (
                 price: availibleVariant[0].price,
                 variant_id: availibleVariant[0].id,
                 variant_title: availibleVariant[0].title || "",
-                quantity,
+                quantity: 1,
             };
 
             // Update the list of cart items with the newly added cart items

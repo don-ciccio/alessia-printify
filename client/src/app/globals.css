@@ -28,4 +28,20 @@
     .navbar__link:hover::after {
         scale: 1;
     }
+
+
+        .slick-dots  {
+            display: block !important;
+          position: relative !important;
+          bottom: 0 !important;
+        }
+    .slick-dots li {
+        height: 40px !important;
+        width: 40px !important;
+    }
+    .slick-dots img {
+    
+        border: 1px solid #eee !important;
+        border-radius: 0.75rem !important;
+    }
 }

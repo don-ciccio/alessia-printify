@@ -1,4 +1,4 @@
-import { Product } from "@/lib/printify/client";
+import { Product } from "@/libs/printify/client";
 import axios from "axios";
 import { atom } from "nanostores";
 
@@ -115,14 +115,19 @@ export const addToCart = async (
     }
 };
 
-export const removeFromCart = async (id: string) => {
+export const removeFromCart = async (id: string, variant_id: number) => {
     try {
         // Define cart items from state
         const cartItems = cart?.get() || [];
 
-        const updatedCartItem = cartItems?.filter(
-            (cartItem) => cartItem?.id !== id
-        );
+        const updatedCartItem = cartItems?.filter((cartItem) => {
+            if (cartItem?.id === id) {
+                return cartItem?.variant_id !== variant_id;
+            } else {
+                return cartItem?.id !== id;
+            }
+        });
+
         cart.set(updatedCartItem);
 
         localStorage.setItem("cart", JSON.stringify(cart?.get()));
@@ -131,3 +136,11 @@ export const removeFromCart = async (id: string) => {
     } finally {
     }
 };
+
+export function getTotalItems() {
+    const cartItems = cart?.get() || [];
+    const total: number =
+        cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
+
+    return total;
+}

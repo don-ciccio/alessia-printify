@@ -1,4 +1,4 @@
-import { PrintifyClient } from "@/lib/printify/client";
+import { PrintifyClient } from "@/libs/printify/client";
 import { NextResponse } from "next/server";
 
 export type GetShopsResponse = {

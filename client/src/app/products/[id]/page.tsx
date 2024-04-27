@@ -2,7 +2,7 @@
 import ProductAddToCart from "@/components/ProductAddToCart";
 import { formatCurrency } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
-import { Product } from "@/lib/printify/client";
+import { Product } from "@/libs/printify/client";
 
 async function getData(id: string): Promise<Product> {
     const res = await fetch(

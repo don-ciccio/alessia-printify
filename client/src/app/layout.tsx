@@ -4,6 +4,7 @@ import "./globals.css";
 import HeaderTop from "@/components/HeaderTop";
 import HeaderMain from "@/components/HeaderMain";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "sonner";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -32,6 +33,7 @@ export default function RootLayout({
                 <Navbar />
                 <MobNavbar />
                 {children}
+                <Toaster position='top-right' />
                 <Footer />
             </body>
         </html>

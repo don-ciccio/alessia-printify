@@ -1,4 +1,4 @@
-import { Product } from "@/lib/printify/client";
+import { Product } from "@/libs/printify/client";
 import axios from "axios";
 import { atom, map } from "nanostores";
 

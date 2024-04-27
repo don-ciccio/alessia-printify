@@ -3,14 +3,14 @@
 import React from "react";
 import Drawer from "./Drawer";
 import { useStore } from "@nanostores/react";
-import { addToCart, cart } from "@/app/state/cart";
+import { getTotalItems, cart, removeFromCart } from "@/state/cart";
 import { formatCurrency } from "./ProductCard";
-import { HiOutlineShoppingBag } from "react-icons/hi";
+import { HiOutlineShoppingBag, HiX } from "react-icons/hi";
 
 const CartDrawer = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const cartItems = useStore(cart);
-
+    const total = getTotalItems();
     return (
         <>
             <div
@@ -19,7 +19,7 @@ const CartDrawer = () => {
             >
                 <HiOutlineShoppingBag size={28} />
                 <div className='bg-accent rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[13px] text-white grid place-items-center translate-x-1 -translate-y-1'>
-                    0
+                    {total}
                 </div>
             </div>
             <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -47,6 +47,15 @@ const CartDrawer = () => {
                                     </span>
                                 </div>
                             </div>
+                            <button
+                                title='Remove'
+                                type='button'
+                                onClick={() =>
+                                    removeFromCart(item.id, item.variant_id)
+                                }
+                            >
+                                <HiX size={20} />
+                            </button>
                         </div>
                     ))}
                 </div>

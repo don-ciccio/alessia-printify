@@ -1,13 +1,11 @@
 "use client";
 import { useCallback, useEffect, useState, type ChangeEvent } from "react";
 import { useStore } from "@nanostores/react";
-import {
-    errorGetProduct,
-    getProductRequest,
-    loadingGetProduct,
-    productGetState,
-} from "@/app/state/products";
-import { addToCart, cart } from "@/app/state/cart";
+import { getProductRequest, productGetState } from "@/state/products";
+import { addToCart, cart } from "@/state/cart";
+import { HiCheckCircle } from "react-icons/hi";
+
+import { toast } from "sonner";
 
 import React from "react";
 import { formatCurrency } from "./ProductCard";
@@ -27,6 +25,14 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
     const handleAddToCart = useCallback(
         async (quantity: string | number, selectedVariant: string) => {
             await addToCart(id, selectedVariant, Number(quantity));
+            toast.success(
+                <div className='font-bold text-base text-accent flex gap-4 items-center justify-center'>
+                    <span>
+                        <HiCheckCircle size={25} />
+                    </span>
+                    Added to cart
+                </div>
+            );
         },
         [id]
     );

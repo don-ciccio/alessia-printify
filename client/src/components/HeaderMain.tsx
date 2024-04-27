@@ -2,6 +2,7 @@ import { BsSearch } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
 import Link from "next/link";
 import CartDrawer from "./CartDrawer";
+import { BiUser } from "react-icons/bi";
 
 async function getData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api`, {
@@ -43,6 +44,10 @@ const HeaderMain = async () => {
                     />
                 </div>
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>
+                    <Link href={"/login"}>
+                        <BiUser size={28} />
+                    </Link>
+
                     <div className='relative'>
                         <FiHeart size={28} />
                         <div className='bg-accent rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[13px] text-white grid place-items-center translate-x-1 -translate-y-1'>

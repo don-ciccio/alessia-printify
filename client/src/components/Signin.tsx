@@ -134,7 +134,7 @@ const Signin = () => {
                 </button>
 
                 <div className='relative flex items-center justify-center w-full h-10'>
-                    <div className='absolute w-full h-px top-2/4 bg-[#2E2E2E]'></div>
+                    <div className='absolute w-full h-px top-2/4 bg-gray-200'></div>
                     <p className='z-10 flex items-center justify-center w-8 h-6 bg-white'>
                         or
                     </p>

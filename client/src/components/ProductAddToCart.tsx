@@ -16,7 +16,7 @@ type ProductDetailsProps = {
 
 const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
     const product = useStore(productGetState);
-    const [selectedVariant, setSelectedVariant] = useState<string>("");
+    const [selectedVariant, setSelectedVariant] = useState<any>("");
 
     const cartItems = useStore(cart);
 
@@ -38,7 +38,13 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
     );
 
     useEffect(() => {
-        getProductRequest(id);
+        async function fetchData() {
+            // You can await here
+            const product = await getProductRequest(id);
+            // ...
+            setSelectedVariant(product?.variants[0].id);
+        }
+        fetchData();
     }, [id]);
 
     useEffect(() => {

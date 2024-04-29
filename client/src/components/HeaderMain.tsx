@@ -3,6 +3,8 @@ import { FiHeart } from "react-icons/fi";
 import Link from "next/link";
 import CartDrawer from "./CartDrawer";
 import { BiUser } from "react-icons/bi";
+import { Session, getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth/auth";
 
 async function getData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api`, {
@@ -22,6 +24,7 @@ async function getData() {
 
 const HeaderMain = async () => {
     const data = await getData();
+    const session: Session | null = await getServerSession(authOptions);
 
     return (
         <div className='border-b border-gray-200 py-6'>
@@ -44,9 +47,15 @@ const HeaderMain = async () => {
                     />
                 </div>
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>
-                    <Link href={"/login"}>
-                        <BiUser size={28} />
-                    </Link>
+                    {session?.user ? (
+                        <Link href={"/profile"}>
+                            <BiUser size={28} />
+                        </Link>
+                    ) : (
+                        <Link href={"/login"}>
+                            <BiUser size={28} />
+                        </Link>
+                    )}
 
                     <div className='relative'>
                         <FiHeart size={28} />

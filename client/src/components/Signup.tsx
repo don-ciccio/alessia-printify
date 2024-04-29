@@ -1,4 +1,5 @@
 "use client";
+import axios, { AxiosError } from "axios";
 
 import { FormEvent, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
@@ -14,19 +15,37 @@ const Signin = () => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const res = await signIn("credentials", {
-            email: formData.get("email"),
-            password: formData.get("password"),
-            redirect: false,
-        });
+        try {
+            const formData = new FormData(event.currentTarget);
+            const signupResponse = await axios.post(
+                `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/signup`,
+                {
+                    email: formData.get("email"),
+                    password: formData.get("password"),
+                    name: formData.get("name"),
+                    phone: formData.get("phone"),
+                }
+            );
 
-        if (res?.error) {
-            setError(res.error as string);
-        }
+            const res = await signIn("credentials", {
+                email: signupResponse.data.email,
+                password: formData.get("password"),
+                redirect: false,
+            });
 
-        if (!res?.error) {
-            return router.push("/");
+            if (res?.error) {
+                setError(res.error as string);
+            }
+
+            if (!res?.error) {
+                return router.push("/");
+            }
+        } catch (error) {
+            console.log(error);
+            if (error instanceof AxiosError) {
+                const errorMessage = error.response?.data.message;
+                setError(errorMessage);
+            }
         }
     };
 
@@ -59,8 +78,15 @@ const Signin = () => {
                 ) : (
                     <div className='h-5 w-full'></div>
                 )}
-                <h1 className='w-full mb-5 text-2xl font-bold'>Sign in</h1>
+                <h1 className='w-full mb-5 text-2xl font-bold'>Sign up</h1>
 
+                <label className={labelStyles}>Fullname:</label>
+                <input
+                    type='text'
+                    placeholder='Fullname'
+                    className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none'
+                    name='name'
+                />
                 <label className={labelStyles}>Email:</label>
 
                 <input
@@ -120,11 +146,20 @@ const Signin = () => {
                         )}
                     </button>
                 </div>
+
+                <label className={labelStyles}>Phone:</label>
+                <input
+                    type='text'
+                    placeholder='Phone (not required)'
+                    className='border-gray-200 border p-2 px-4 rounded-l-lg w-full outline-none'
+                    name='phone'
+                />
+
                 <button
                     className='w-full mt-4 px-4 py-3 bg-accent hover:bg-blackish text-white font-bold rounded-lg'
                     type='submit'
                 >
-                    Sign in
+                    Sign up
                 </button>
 
                 <div className='relative flex items-center justify-center w-full h-10'>
@@ -170,10 +205,10 @@ const Signin = () => {
                     Sign in with Google
                 </button>
                 <Link
-                    href='/register'
+                    href='/login'
                     className='text-sm transition duration-150 text-[#A1A1A1] ease hover:text-blackish'
                 >
-                    Don&apos;t have an account?
+                    Already have an account?
                 </Link>
             </form>
         </section>

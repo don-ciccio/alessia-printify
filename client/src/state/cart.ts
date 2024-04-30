@@ -4,15 +4,7 @@ import { atom } from "nanostores";
 
 const URL = process.env.NEXT_PUBLIC_APP_URL;
 
-interface ICartItem {
-    id: string;
-    title: string;
-    image: string;
-    price: number;
-    variant_id: number;
-    variant_title: string;
-    quantity: number;
-}
+import { ICartItem } from "@/types/types";
 
 export const loadingAddCart = atom<boolean>(false);
 export const errorAddCart = atom<string | undefined>(undefined);
@@ -91,8 +83,11 @@ export const addToCart = async (
                 title: productResponse?.title,
                 image: productResponse?.images[0].src,
                 price: availibleVariant[0].price,
+                print_provider_id: productResponse?.print_provider_id,
+                blueprint_id: productResponse?.blueprint_id,
                 variant_id: availibleVariant[0].id,
                 variant_title: availibleVariant[0].title || "",
+                sku: availibleVariant[0].sku || "",
                 quantity: 1,
             };
 

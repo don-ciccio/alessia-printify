@@ -19,7 +19,11 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
   color: #1b1b1b !important;
 -webkit-text-fill-color: #1b1b1b;
+outline: none;
+}
 
+input:-webkit-autofill:focus {
+border: 1px solid #ff8f9c;
 }
 
 @layer components {

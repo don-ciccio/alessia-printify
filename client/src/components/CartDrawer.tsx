@@ -64,6 +64,17 @@ const CartDrawer = () => {
                                 </button>
                             </div>
                         ))}
+                        <div>
+                            {cartItems && (
+                                <Link
+                                    onClick={() => setIsOpen(false)}
+                                    href={"/checkout"}
+                                    className='w-full text-sm p-2.5 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
+                                >
+                                    Checkout
+                                </Link>
+                            )}
+                        </div>
                     </div>
                 </Drawer>
             </>

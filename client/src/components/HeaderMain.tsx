@@ -37,7 +37,7 @@ const HeaderMain = async () => {
                 </Link>
                 <div className='w-full sm:w-[300px] md:w-[50%] relative'>
                     <input
-                        className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-2 ring-accent'
+                        className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
                         type='text'
                         placeholder='Enter any product name...'
                     />

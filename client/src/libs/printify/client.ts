@@ -1,3 +1,7 @@
+import {
+    CalculateOrderShippingCostResponse,
+    OrderSubmissionProperties,
+} from "@/types/types";
 import { BASE_URL, VERSION } from "./constants";
 import { PrintifyError } from "./errors";
 
@@ -200,6 +204,18 @@ class PrintifyClient {
         const data = await this.callApi<GetProductResponse>({
             method: "GET",
             path: `/shops/${shopId}/products/${productId}.json`,
+        });
+        return data;
+    }
+
+    async calculateOrderShippingCost(
+        shopId: number,
+        payload: Pick<OrderSubmissionProperties, "line_items" | "address_to">
+    ) {
+        const data = await this.callApi<CalculateOrderShippingCostResponse>({
+            method: "POST",
+            body: payload,
+            path: `/shops/${shopId}/orders/shipping.json`,
         });
         return data;
     }

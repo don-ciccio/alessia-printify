@@ -1,11 +1,10 @@
 "use client";
 import axios, { AxiosError } from "axios";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 
 const Signin = () => {
     const labelStyles = "w-full text-sm";

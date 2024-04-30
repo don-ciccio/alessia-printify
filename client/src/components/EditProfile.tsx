@@ -20,9 +20,9 @@ const EditProfile = () => {
                 </label>
                 <input
                     id='name'
-                    defaultValue={session?.user?.name}
+                    defaultValue={session?.user.name}
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
-                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none'
+                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
                 />
             </div>
             <div className='grid items-center grid-cols-4 gap-4'>
@@ -31,12 +31,12 @@ const EditProfile = () => {
                 </label>
                 <input
                     id='email'
-                    defaultValue={session?.user?.email}
-                    disabled={session?.user?.image ? true : false}
+                    defaultValue={session?.user.email}
+                    disabled={session?.user.image ? true : false}
                     onChange={(e) =>
                         setUser({ ...user, email: e.target.value })
                     }
-                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none'
+                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
                 />
             </div>
             <div className='grid items-center grid-cols-4 gap-4'>
@@ -45,12 +45,12 @@ const EditProfile = () => {
                 </label>
                 <input
                     id='phone'
-                    defaultValue={session?.user?.phone}
-                    disabled={session?.user?.image ? true : false}
+                    defaultValue={session?.user.phone}
+                    disabled={session?.user.image ? true : false}
                     onChange={(e) =>
                         setUser({ ...user, phone: e.target.value })
                     }
-                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none'
+                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none appearance-none focus:ring-1 ring-accent'
                 />
             </div>
         </div>

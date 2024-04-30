@@ -108,3 +108,91 @@ export interface UserDocument {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface ICartItem {
+    id: string;
+    title: string;
+    image: string;
+    price: number;
+    variant_id: number;
+    variant_title: string;
+    quantity: number;
+    blueprint_id: number;
+    print_provider_id: number;
+    sku: string;
+}
+
+export type CalculateOrderShippingCostResponse = {
+    standard: number;
+    express: number;
+    priority: number;
+    printify_express: number;
+    economy: number;
+};
+
+export type OrderSubmissionProperties = {
+    external_id: string;
+    label?: SVGStringList;
+    line_items: (ProductIdLineItem | NewProductLineItem | SkuLineItem)[];
+    shipping_method: ShippingMethod;
+    send_shipping_notification?: boolean;
+    address_to: {
+        first_name: string;
+        last_name: string;
+        region: string;
+        address1: string;
+        address2?: string;
+        city: string;
+        zip: string;
+        email: string;
+        phone: string;
+        country: string;
+        company?: string;
+    };
+};
+
+export interface ProductIdLineItem {
+    product_id: string;
+    variant_id: number;
+    quantity: number;
+}
+
+export interface NewProductLineItem {
+    print_provider_id: number;
+    blueprint_id: number;
+    variant_id: number;
+    print_areas:
+        | {
+              front: string;
+          }
+        | {
+              back: string;
+          }
+        | {
+              front: string;
+              back: string;
+          };
+    quantity: number;
+}
+
+export interface SkuLineItem {
+    sku: string;
+    quantity: number;
+}
+
+export enum ShippingMethod {
+    /**
+     * Standard Shippinh
+     */
+    standard = 1,
+    /**
+     * Priority Shipping
+     */
+    priority = 2,
+    /**
+     * Printify Express Shipping
+     * @see https://developers.printify.com/#orders:~:text=or%20has%2Dissues.-,shipping%20method,-REQUIRED
+     * @deprecated Not yet supported on public api. Should not be used for making orders.
+     */
+    express = 3,
+}

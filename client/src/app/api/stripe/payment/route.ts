@@ -5,53 +5,78 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: "2024-04-10",
 });
 
-async function loadPrices() {
-    const prices = await stripe.prices.list();
-    return prices.data;
-}
-
 export async function POST(request: NextRequest) {
     try {
-        const { lineItems, userId } = await request.json();
+        const { lineItems, userId, deliveryData, shippingCost } =
+            await request.json();
 
         if (!lineItems || !userId) throw Error("Missing data");
 
-        const products = await loadPrices();
+        const lineItemsList = [];
 
-        const lineItemsList = await lineItems.map((item: any) => {
-            const matchingProduct = products.find(
-                (product) => product.id === item.variantId
-            );
-
-            if (!matchingProduct) {
-                throw new Error(
-                    `Product not found for variantId: ${item.variantId}`
-                );
-            }
-
-            return {
-                price: matchingProduct.id,
-                quantity: item.quantity,
-            };
-        });
-
+        for (let item of lineItems) {
+            const price = await stripe.prices.create({
+                currency: "eur",
+                unit_amount: item.price,
+                product_data: {
+                    name: item.title,
+                },
+            });
+            const quantity = item.quantity;
+            lineItemsList.push({
+                price: price.id,
+                quantity: quantity,
+            });
+        }
+        // Create Stripe session
         const session = await stripe.checkout.sessions.create({
-            line_items: lineItemsList,
-            mode: "payment",
-            invoice_creation: {
-                enabled: true,
-            },
-            billing_address_collection: "required",
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/result?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
-            automatic_tax: {
-                enabled: true,
-            },
             phone_number_collection: {
                 enabled: true,
             },
+            billing_address_collection: "required",
+
+            line_items: lineItemsList,
+
+            shipping_options: [
+                {
+                    shipping_rate_data: {
+                        type: "fixed_amount",
+                        fixed_amount: {
+                            amount: shippingCost.standard,
+                            currency: "eur",
+                        },
+
+                        display_name: "Shipping",
+                        delivery_estimate: {
+                            minimum: {
+                                unit: "business_day",
+                                value: 5,
+                            },
+                            maximum: {
+                                unit: "business_day",
+                                value: 10,
+                            },
+                        },
+                    },
+                },
+            ],
+
+            mode: "payment",
+            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/result?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
+
+            // Passes the shipping data collected before stripe session to the web hook
             metadata: {
-                userId: userId,
+                line1: deliveryData.address1,
+                line2: "",
+                state: "",
+                city: deliveryData.city,
+                postal_code: deliveryData.zip,
+                country: deliveryData.country,
+                name: deliveryData.first_name + " " + deliveryData.last_name,
+                phone: deliveryData.phone,
+                email: deliveryData.email,
+                sessionId: userId,
             },
         });
 

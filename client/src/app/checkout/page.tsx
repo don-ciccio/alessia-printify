@@ -76,7 +76,7 @@ const ShippingForm = () => {
                 },
             };
 
-            const { data: shippingResponse } = await axios.post(
+            const { data: shippingCost } = await axios.post(
                 `${process.env.NEXT_PUBLIC_APP_URL}/api/orders/shipping`,
                 {
                     line_items: formattedData.line_items,
@@ -84,15 +84,23 @@ const ShippingForm = () => {
                 }
             );
 
-            console.log(shippingResponse);
-            if (shippingResponse.statusCode === 400) {
-                toast.error(shippingResponse.message);
-                console.error(
-                    shippingResponse.statusCode,
-                    shippingResponse.message
-                );
+            const { data } = await axios.post(
+                `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/payment`,
+                {
+                    lineItems: cartItems,
+                    userId: session.user._id,
+                    deliveryData: deliveryData,
+                    shippingCost: shippingCost,
+                }
+            );
+
+            if (data.statusCode === 500) {
+                toast.error(data.message);
+                console.error(data.statusCode, data.message);
                 return;
             }
+
+            window.location.href = data.session.url;
         } catch (error) {
             console.error(error);
         }

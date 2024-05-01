@@ -32,14 +32,14 @@ const CartDrawer = () => {
                     <div className='flex flex-col text-blackish'>
                         {cartItems?.map((item, id) => (
                             <div className='flex w-full px-5 mb-5' key={id}>
-                                <div className='w-20'>
+                                <div className='w-[85px]'>
                                     <img
                                         className='w-16 h-16 border rounded-md'
                                         src={item.image}
                                         alt={item.title}
                                     />
                                 </div>
-                                <div className='flex flex-col relative w-2/3'>
+                                <div className='flex flex-col relative w-5/6'>
                                     <p className='text-[14px] font-semibold text-left'>
                                         {item.title}
                                     </p>
@@ -53,25 +53,30 @@ const CartDrawer = () => {
                                         </span>
                                     </div>
                                 </div>
-                                <button
-                                    title='Remove'
-                                    type='button'
-                                    onClick={() =>
-                                        removeFromCart(item.id, item.variant_id)
-                                    }
-                                >
-                                    <HiX size={20} />
-                                </button>
+                                <div className='flex relative w-1/6 items-center justify-center'>
+                                    <button
+                                        title='Remove'
+                                        type='button'
+                                        onClick={() =>
+                                            removeFromCart(
+                                                item.id,
+                                                item.variant_id
+                                            )
+                                        }
+                                    >
+                                        <HiX size={20} />
+                                    </button>
+                                </div>
                             </div>
                         ))}
-                        <div>
+                        <div className='absolute flex bottom-4 w-full items-center justify-center'>
                             {cartItems && (
                                 <Link
                                     onClick={() => setIsOpen(false)}
                                     href={"/checkout"}
-                                    className='w-full text-sm p-2.5 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
+                                    className='w-2/3 text-center text-base p-2.5 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
                                 >
-                                    Checkout
+                                    Proceed to Checkout
                                 </Link>
                             )}
                         </div>

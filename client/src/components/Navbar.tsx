@@ -5,21 +5,21 @@ const Navbar = () => {
     return (
         <div className='hidden lg:block'>
             <div className='container'>
-                <div className='flex w-fit gap-10 mx-auto font-medium py-4 text-blackish'>
+                <div className='flex w-fit gap-10 mx-auto font-semibold text-[19px] py-4 text-blackish'>
                     <Link className='navbar__link relative' href='/'>
-                        HOME
+                        Home
                     </Link>
                     <Link className='navbar__link relative' href='/'>
-                        CATEGORIES
+                        T-shirts
                     </Link>
                     <Link className='navbar__link relative' href='/'>
-                        MEN
+                        Hoodies
                     </Link>
                     <Link className='navbar__link relative' href='/'>
-                        WOMEN
+                        Mugs
                     </Link>
                     <Link className='navbar__link relative' href='/'>
-                        BLOG
+                        Blog
                     </Link>
                     <Link className='navbar__link relative' href='/'>
                         HOT OFFERS

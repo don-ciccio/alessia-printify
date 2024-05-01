@@ -36,17 +36,15 @@ border: 1px solid #ff8f9c;
         transition: all 0.4s;
     }
 
-    .navbar__link::after {
-        position: absolute;
+    .navbar__link::before {
         content: "";
-        background-color: #ff8f9c;
-        height: 3px;
-        width: 100%;
-        bottom: -5px;
-        left: 0;
-        scale: 0;
-        transform-origin: left;
-        transition: all 0.4s;
+            position: absolute;
+            inset: calc(100% - 3px) 0 0 0;
+            /* 3px = the thickness */
+            background: #ff8f9c;
+            /* the color */
+            scale: 0 1;
+            transition: .3s, translate 0s .3s;
     }
 
     .navbar__link:hover::after {
@@ -54,6 +52,33 @@ border: 1px solid #ff8f9c;
     }
 
 
+.navbar__link a {
+    padding: 0 .5em .25em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: .3s;
+}
+
+
+.navbar__link:hover::before {
+    scale: 1;
+}
+
+.navbar__link:hover::before {
+    translate: 0;
+    transition: .3s;
+}
+
+.navbar__link:hover:has::before {
+    translate: 100% 0;
+    transition: .2s .2s, scale 0s .4s;
+}
+
+.navbar__link:hover:hover~:before {
+    translate: -100% 0;
+    transition: .2s .2s, scale 0s .4s;
+}
         .slick-dots  {
             display: block !important;
           position: relative !important;

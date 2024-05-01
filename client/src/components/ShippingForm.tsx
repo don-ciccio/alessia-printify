@@ -112,7 +112,7 @@ const ShippingForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <div className='mb-6'>
-                <h2 className='text-xl font-semibold text-gray-700 dark:text-white mb-2'>
+                <h2 className='text-xl font-semibold text-gray-700 dark:text-white mb-4'>
                     Shipping Address
                 </h2>
                 <div className='flex flex-col gap-4 mb-5'>
@@ -215,7 +215,7 @@ const ShippingForm = () => {
                         </div>
                     </div>
                 </div>
-                <h2 className='text-xl font-semibold text-gray-700 dark:text-white mb-2'>
+                <h2 className='text-xl font-semibold text-gray-700 dark:text-white mb-4'>
                     Customer Info
                 </h2>
                 <div className='flex flex-col gap-4 mb-5'>

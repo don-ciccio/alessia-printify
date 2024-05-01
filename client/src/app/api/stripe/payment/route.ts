@@ -21,6 +21,11 @@ export async function POST(request: NextRequest) {
                 product_data: {
                     name: item.title,
                 },
+                metadata: {
+                    product_id: item.product_id,
+                    variant_id: item.variant_id,
+                    quantity: item.quantity,
+                },
             });
             const quantity = item.quantity;
             lineItemsList.push({

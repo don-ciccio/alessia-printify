@@ -1,98 +1,91 @@
 import {
-    calculateExpectedDeliveryDate,
-    generateRandomOrderNumber,
-} from "@/helpers/orderModel";
-import {
-    AddressDocument,
-    OrderDocument,
+    OrderSubmissionProperties,
     OrdersDocument,
-    ProductsDocument,
+    ProductIdLineItem,
 } from "@/types/types";
 import { Schema, model, models } from "mongoose";
 
-const ProductsSchema = new Schema<ProductsDocument>({
-    productId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-    },
-    color: {
+const ProductsSchema = new Schema<ProductIdLineItem>({
+    product_id: {
         type: String,
         required: false,
     },
-    size: {
-        type: String,
+    variant_id: {
+        type: Number,
         required: true,
     },
     quantity: {
         type: Number,
-        required: false,
-    },
-});
-
-const AddressSchema = new Schema<AddressDocument>({
-    city: {
-        type: String,
-        required: true,
-    },
-    country: {
-        type: String,
-        required: true,
-    },
-    line1: {
-        type: String,
-        required: true,
-    },
-    line2: {
-        type: String,
-        required: false,
-    },
-    postal_code: {
-        type: String,
-        required: true,
-    },
-    state: {
-        type: String,
         required: true,
     },
 });
 
-const OrderSchema = new Schema<OrderDocument>({
-    name: {
+const OrderSchema = new Schema<OrderSubmissionProperties>({
+    external_id: {
         type: String,
         required: true,
     },
-    email: {
+    label: {
         type: String,
-        required: true,
-    },
-    phone: {
-        type: Number,
         required: false,
     },
-    address: AddressSchema,
-    products: {
+    line_items: {
         type: [ProductsSchema],
         required: true,
     },
-    orderId: {
-        type: String,
-        required: true,
-    },
-    purchaseDate: {
-        type: Date,
-        default: Date.now,
-    },
-    expectedDeliveryDate: {
-        type: Date,
-        default: calculateExpectedDeliveryDate,
-    },
-    total_price: {
+    shipping_method: {
         type: Number,
         required: true,
     },
-    orderNumber: {
-        type: String,
-        default: generateRandomOrderNumber,
+    send_shipping_notification: {
+        type: Boolean,
+        required: true,
+    },
+    address_to: {
+        first_name: {
+            type: String,
+            required: true,
+        },
+        last_name: {
+            type: String,
+            required: true,
+        },
+        region: {
+            type: String,
+            required: true,
+        },
+        address1: {
+            type: String,
+            required: true,
+        },
+        address2: {
+            type: String,
+            required: false,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        zip: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+        },
+        phone: {
+            type: String,
+            required: true,
+        },
+        country: {
+            type: String,
+            required: true,
+        },
+        company: {
+            type: String,
+            required: false,
+        },
     },
 });
 

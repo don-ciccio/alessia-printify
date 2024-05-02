@@ -20,11 +20,11 @@ export async function POST(request: NextRequest) {
                 unit_amount: item.price,
                 product_data: {
                     name: item.title,
-                },
-                metadata: {
-                    product_id: item.product_id,
-                    variant_id: item.variant_id,
-                    quantity: item.quantity,
+                    metadata: {
+                        variant_id: item.variant_id,
+                        product_id: item.id,
+                        quantity: item.quantity,
+                    },
                 },
             });
             const quantity = item.quantity;

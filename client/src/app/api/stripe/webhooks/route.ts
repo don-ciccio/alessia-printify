@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
-import { OrderSubmissionProperties } from "@/types/types";
+import { OrdersDocument, OrderSubmissionProperties } from "@/types/types";
 import { v4 as uuidv4 } from "uuid";
 import { connectDB } from "@/libs/mongodb";
 import { Orders } from "@/models/Orders";
@@ -120,10 +120,27 @@ const webhookHandler = async (req: NextRequest) => {
                         }
                     });
 
-                    await Orders.collection.insertOne({
-                        userId: checkoutSessionComplete.metadata?.sessionId,
-                        orders: [orderDocument],
-                    });
+                    const userOrders: OrdersDocument | null =
+                        await Orders.findOne({
+                            userId: checkoutSessionComplete.metadata?.sessionId,
+                        });
+
+                    if (userOrders) {
+                        userOrders.orders.push(orderDocument);
+                        await Orders.findOneAndUpdate(
+                            {
+                                userId: checkoutSessionComplete.metadata
+                                    ?.sessionId,
+                            },
+                            userOrders,
+                            { new: true }
+                        );
+                    } else {
+                        await Orders.collection.insertOne({
+                            userId: checkoutSessionComplete.metadata?.sessionId,
+                            orders: [orderDocument],
+                        });
+                    }
                 }
 
                 break;

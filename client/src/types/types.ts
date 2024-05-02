@@ -30,7 +30,7 @@ export interface EnrichedProducts {
 
 export interface OrdersDocument extends Document {
     userId: string;
-    orders: [OrderDocument];
+    orders: [OrderSubmissionProperties];
 }
 
 export interface OrderDocument {

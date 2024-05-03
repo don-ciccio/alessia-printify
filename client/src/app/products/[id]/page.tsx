@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import { AddReview } from "@/components/AddReview";
 import ProductAddToCart from "@/components/ProductAddToCart";
 import { formatCurrency } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
 import { Product } from "@/libs/printify/client";
+import { IReview } from "@/types/types";
 
 async function getData(id: string): Promise<Product> {
     const res = await fetch(
@@ -23,8 +25,28 @@ async function getData(id: string): Promise<Product> {
     return res.json();
 }
 
+async function getReviews(id: string): Promise<any> {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/products/${id}/reviews`,
+        {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        }
+    );
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+}
+
 const ProductDetails = async ({ params }: { params: { id: string } }) => {
     const data = await getData(params.id);
+    const { reviews } = await getReviews(params.id);
 
     return (
         <div className='mx-auto'>
@@ -89,8 +111,12 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                                 {data.description}
                             </div>
                         </div>
+                        <AddReview id={data.id} />
                         <div className='mt-8 max-w-md'>
-                            <h3 className='text-lg font-bold'>Reviews(10)</h3>
+                            <h3 className='text-lg font-bold'>
+                                Reviews(
+                                {reviews.length > 0 ? reviews.length : "0"})
+                            </h3>
                             <div className='space-y-3 mt-4'>
                                 <div className='flex items-center'>
                                     <p className='text-sm font-bold'>5.0</p>

@@ -196,3 +196,11 @@ export enum ShippingMethod {
      */
     express = 3,
 }
+
+export interface IReview {
+    product_id: string;
+    name: string;
+    rating: number;
+    comment: string;
+    userId: Schema.Types.ObjectId;
+}

@@ -254,7 +254,7 @@ const ShippingForm = () => {
                 <div className='mt-8 flex justify-end'>
                     <button
                         type='submit'
-                        className=' text-base py-2.5 px-4 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
+                        className='min-w-[120px] text-base py-2.5 px-4 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
                     >
                         {isPending ? (
                             <Loader height={20} width={20} />

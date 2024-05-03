@@ -5,6 +5,7 @@ import { formatCurrency } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
 import { Message } from "@/components/ui/Message";
 import { Rating } from "@/components/ui/Rating";
+import { RatingMain } from "@/components/ui/RatingMain";
 import { Product } from "@/libs/printify/client";
 import { IReview } from "@/types/types";
 
@@ -67,65 +68,22 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                             </p>
                         </div>
                         <div className='flex space-x-2 mt-4'>
-                            <svg
-                                className='w-5 fill-accent'
-                                viewBox='0 0 14 13'
-                                fill='none'
-                                xmlns='http://www.w3.org/2000/svg'
-                            >
-                                <path d='M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z'></path>
-                            </svg>
-                            <svg
-                                className='w-5 fill-accent'
-                                viewBox='0 0 14 13'
-                                fill='none'
-                                xmlns='http://www.w3.org/2000/svg'
-                            >
-                                <path d='M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z'></path>
-                            </svg>
-                            <svg
-                                className='w-5 fill-accent'
-                                viewBox='0 0 14 13'
-                                fill='none'
-                                xmlns='http://www.w3.org/2000/svg'
-                            >
-                                <path d='M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z'></path>
-                            </svg>
-                            <svg
-                                className='w-5 fill-accent'
-                                viewBox='0 0 14 13'
-                                fill='none'
-                                xmlns='http://www.w3.org/2000/svg'
-                            >
-                                <path d='M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z'></path>
-                            </svg>
-                            <svg
-                                className='w-5 fill-[#CED5D8]'
-                                viewBox='0 0 14 13'
-                                fill='none'
-                                xmlns='http://www.w3.org/2000/svg'
-                            >
-                                <path d='M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z'></path>
-                            </svg>
+                            <RatingMain value={rating} text={""} />
                         </div>
                         <ProductAddToCart id={data.id} />
                         <div className='mt-8'>
                             <h3 className='text-lg font-bold'>Description</h3>
-                            <div className='space-y-3 mt-4 text-sm'>
+                            <div className='space-y-3 mt-4 text-base'>
                                 {data.description}
                             </div>
                         </div>
                         <AddReview id={data.id} />
                         <div className='mt-8 max-w-md'>
                             <div className='text-xl md:text-2xl  pt-4 pb-3'>
-                                <Rating
-                                    value={rating}
-                                    text={`${
-                                        reviews.length > 0
-                                            ? reviews.length
-                                            : "0"
-                                    } reviews`}
-                                />
+                                <span className='font-bold text-lg'>
+                                    Reviews (
+                                    {reviews.length > 0 ? reviews.length : "0"})
+                                </span>
                             </div>
                             {reviews?.length === 0 && (
                                 <Message variant='info'>

@@ -39,7 +39,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
     return (
         <div className='w-full'>
             <h2 className='text-lg font-bold   pt-6 pb-2 mx-auto'>
-                Add Reviews
+                Add Review
             </h2>
 
             <div>

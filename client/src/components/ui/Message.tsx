@@ -31,7 +31,7 @@ export const Message: React.FC<MessageProps> = ({ variant, children }) => {
     if (variant === "info") {
         return (
             <div
-                className='bg-blue-50 border border-blue-300 text-blue-600 px-4 py-3 rounded relative my-2'
+                className='bg-[#faf2f3] border border-[#f7c6cc] text-accent px-4 py-3 rounded-lg relative my-2'
                 role='alert'
             >
                 <span className='block sm:inline'>{children}</span>

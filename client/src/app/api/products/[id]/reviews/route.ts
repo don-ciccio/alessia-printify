@@ -51,11 +51,23 @@ export async function GET(
 ) {
     try {
         await connectDB();
+        const session: Session | null = await getServerSession(authOptions);
 
         const id = params.id;
+
         const reviews = await Review.find({
             product_id: id,
         });
+
+        const alreadyReviewed = reviews.find(
+            (review) =>
+                review.userId.toString() === session?.user._id.toString()
+        );
+
+        if (alreadyReviewed) {
+            NextResponse.json({ status: 400 });
+            throw new Error("Product already reviewed");
+        }
 
         return NextResponse.json(
             {

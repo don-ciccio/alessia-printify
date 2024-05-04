@@ -8,6 +8,8 @@ import { Rating } from "@/components/ui/Rating";
 import { RatingMain } from "@/components/ui/RatingMain";
 import { Product } from "@/libs/printify/client";
 import { IReview } from "@/types/types";
+import { Session, getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth/auth";
 
 async function getData(id: string): Promise<Product> {
     const res = await fetch(
@@ -50,6 +52,8 @@ async function getReviews(id: string): Promise<any> {
 const ProductDetails = async ({ params }: { params: { id: string } }) => {
     const data = await getData(params.id);
     const { reviews } = await getReviews(params.id);
+    const session: Session | null = await getServerSession(authOptions);
+
     const rating: number =
         reviews.reduce((acc: any, item: IReview) => item.rating + acc, 0) /
         reviews.length;
@@ -77,7 +81,7 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                                 {data.description}
                             </div>
                         </div>
-                        <AddReview id={data.id} />
+                        {session && <AddReview id={data.id} />}
                         <div className='mt-8 max-w-md'>
                             <div className='text-xl md:text-2xl  pt-4 pb-3'>
                                 <span className='font-bold text-lg'>

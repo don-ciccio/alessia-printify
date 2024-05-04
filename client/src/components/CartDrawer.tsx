@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import Drawer from "./Drawer";
 import { useStore } from "@nanostores/react";
 import { getTotalItems, cart, removeFromCart } from "@/state/cart";
@@ -16,6 +16,13 @@ const CartDrawer = () => {
     const cartItems = useStore(cart);
     const total = getTotalItems();
 
+    const handleRemoveFromCart = useCallback(
+        async (id: string, variant_id: number) => {
+            await removeFromCart(id, variant_id);
+        },
+        []
+    );
+
     if (session?.user) {
         return (
             <>
@@ -30,47 +37,55 @@ const CartDrawer = () => {
                 </div>
                 <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
                     <div className='flex flex-col text-blackish'>
-                        {cartItems?.map((item, id) => (
-                            <div className='flex w-full px-5 mb-5' key={id}>
-                                <div className='w-[85px]'>
-                                    <img
-                                        className='w-16 h-16 border rounded-md'
-                                        src={item.image}
-                                        alt={item.title}
-                                    />
-                                </div>
-                                <div className='flex flex-col relative w-5/6'>
-                                    <p className='text-[14px] font-semibold text-left'>
-                                        {item.title}
-                                    </p>
-                                    <div>
-                                        <span className='font-extralight text-sm'>
-                                            ({item.variant_title}){" "}
-                                        </span>
-                                        <span className='font-extralight text-sm'>
-                                            {formatCurrency(item.price)} X{" "}
-                                            {item.quantity}
-                                        </span>
+                        {cartItems?.length ? (
+                            cartItems.map((item, id) => (
+                                <div className='flex w-full px-5 mb-5' key={id}>
+                                    <div className='w-[85px]'>
+                                        <img
+                                            className='w-16 h-16 border rounded-md'
+                                            src={item.image}
+                                            alt={item.title}
+                                        />
+                                    </div>
+                                    <div className='flex flex-col relative w-5/6'>
+                                        <p className='text-[14px] font-semibold text-left'>
+                                            {item.title}
+                                        </p>
+                                        <div>
+                                            <span className='font-extralight text-sm'>
+                                                ({item.variant_title}){" "}
+                                            </span>
+                                            <span className='font-extralight text-sm'>
+                                                {formatCurrency(item.price)} X{" "}
+                                                {item.quantity}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className='flex relative w-1/6 items-center justify-center'>
+                                        <button
+                                            title='Remove'
+                                            type='button'
+                                            onClick={() =>
+                                                handleRemoveFromCart(
+                                                    item.id,
+                                                    item.variant_id
+                                                )
+                                            }
+                                        >
+                                            <HiX size={20} />
+                                        </button>
                                     </div>
                                 </div>
-                                <div className='flex relative w-1/6 items-center justify-center'>
-                                    <button
-                                        title='Remove'
-                                        type='button'
-                                        onClick={() =>
-                                            removeFromCart(
-                                                item.id,
-                                                item.variant_id
-                                            )
-                                        }
-                                    >
-                                        <HiX size={20} />
-                                    </button>
-                                </div>
+                            ))
+                        ) : (
+                            <div className='flex flex-col w-full px-5 mb-5'>
+                                <p className='mb-4 text-base'>
+                                    Your cart is empty. Start adding products!
+                                </p>
                             </div>
-                        ))}
-                        <div className='absolute flex bottom-4 w-full items-center justify-center'>
-                            {cartItems && (
+                        )}
+                        {cartItems?.length ? (
+                            <div className='absolute flex bottom-4 w-full items-center justify-center'>
                                 <Link
                                     onClick={() => setIsOpen(false)}
                                     href={"/checkout"}
@@ -78,8 +93,8 @@ const CartDrawer = () => {
                                 >
                                     Proceed to Checkout
                                 </Link>
-                            )}
-                        </div>
+                            </div>
+                        ) : null}
                     </div>
                 </Drawer>
             </>

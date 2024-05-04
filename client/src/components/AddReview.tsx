@@ -9,6 +9,7 @@ import {
 } from "@/state/products";
 import { Message } from "@/components/ui/Message";
 import Select from "@/components/ui/Select";
+import { useRouter } from "next/navigation";
 
 type AddReviewProps = {
     id: string;
@@ -17,9 +18,9 @@ type AddReviewProps = {
 export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
     const error = useStore(errorReviewProduct);
     const loading = useStore(loadingReviewProduct);
-
     const [comment, setComment] = useState<string>("");
     const [rating, setRating] = useState<string>("");
+    const router = useRouter();
 
     const handleAddReview = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,8 +34,10 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
                 setComment("");
                 setRating("");
             });
+            router.push(`/products/${id}`);
+            router.refresh();
         },
-        [id, rating, comment]
+        [comment, rating, id, router]
     );
     return (
         <div className='w-full'>

@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import Review from "@/models/Reviews";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
+import { OrdersDocument } from "@/types/types";
+import { Orders } from "@/models/Orders";
 
 export async function POST(
     req: Request,
@@ -16,6 +18,14 @@ export async function POST(
         const { rating, comment } = await req.json();
         const session: Session | null = await getServerSession(authOptions);
 
+        const userOrders: OrdersDocument | null = await Orders.findOne({
+            userId: session?.user._id,
+        });
+
+        if (!userOrders) {
+            NextResponse.json({ status: 400 });
+            throw new Error("Order our products before reviewing them");
+        }
         const review = new Review({
             product_id: id,
             name: session?.user.name,

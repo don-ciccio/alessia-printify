@@ -1,10 +1,10 @@
-import { BsSearch } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
 import Link from "next/link";
 import CartDrawer from "./CartDrawer";
 import { BiUser } from "react-icons/bi";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
+import SearchInput from "./ui/SearchInput";
 
 async function getData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api`, {
@@ -35,17 +35,7 @@ const HeaderMain = async () => {
                 >
                     {data[0].title}
                 </Link>
-                <div className='w-full sm:w-[300px] md:w-[50%] relative'>
-                    <input
-                        className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
-                        type='text'
-                        placeholder='Enter any product name...'
-                    />
-                    <BsSearch
-                        className='absolute top-0 right-0 mr-3 mt-3 text-gray-400'
-                        size={20}
-                    />
-                </div>
+                <SearchInput />
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>
                     {session?.user ? (
                         <Link href={"/profile"}>

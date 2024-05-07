@@ -36,6 +36,7 @@ async function getReviews(id: string): Promise<any> {
         {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            cache: "no-store",
         }
     );
     // The return value is *not* serialized

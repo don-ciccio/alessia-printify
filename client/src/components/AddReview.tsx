@@ -10,6 +10,7 @@ import {
 import { Message } from "@/components/ui/Message";
 import Select from "@/components/ui/Select";
 import { useRouter } from "next/navigation";
+import RatingStar from "./RatingStar/RatingStar";
 
 type AddReviewProps = {
     id: string;
@@ -19,7 +20,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
     const error = useStore(errorReviewProduct);
     const loading = useStore(loadingReviewProduct);
     const [comment, setComment] = useState<string>("");
-    const [rating, setRating] = useState<string>("");
+    const [rating, setRating] = useState<number>(0);
     const router = useRouter();
 
     const handleAddReview = useCallback(
@@ -29,16 +30,20 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
             if (!comment || !rating) {
                 return;
             }
-            reviewProductRequest(id, rating, comment).then(() => {
+            reviewProductRequest(id, rating.toString(), comment).then(() => {
                 getProductRequest(id);
                 setComment("");
-                setRating("");
+                setRating(0);
             });
-            router.push(`/products/${id}`);
+            router.push(`/guides/${id}`);
             router.refresh();
         },
         [comment, rating, id, router]
     );
+
+    const onChange = (nextValue: number) => {
+        setRating(nextValue);
+    };
     return (
         <div className='w-full'>
             <h2 className='text-lg font-bold   pt-6 pb-2 mx-auto'>
@@ -56,11 +61,17 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
                         >
                             Rating
                         </label>
-                        <Select
-                            length={5}
-                            onChange={(e) => setRating(e.target.value)}
+                        <RatingStar
+                            onChange={onChange}
                             value={rating}
-                            name='rating'
+                            isEdit={true}
+                            activeColors={[
+                                "red",
+                                "orange",
+                                "#FFCE00",
+                                "#9177FF",
+                                "#8568FC",
+                            ]}
                         />
                     </div>
                     <br />
@@ -83,7 +94,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
                         ></textarea>
                         <br />
                         <button
-                            className='mt-4 px-4 py-3 bg-accent hover:bg-blackish text-white font-bold rounded-lg'
+                            className='mt-4 px-4 py-2 bg-accent hover:bg-blackish text-white font-bold rounded-lg'
                             type='submit'
                         >
                             Submit

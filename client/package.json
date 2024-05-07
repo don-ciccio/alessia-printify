@@ -12,6 +12,7 @@
     "@nanostores/react": "^0.7.2",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
+    "ga-gtag": "^1.2.0",
     "mongoose": "^8.3.2",
     "nanostores": "^0.10.3",
     "next": "14.2.3",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/gtag.js": "^0.0.19",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

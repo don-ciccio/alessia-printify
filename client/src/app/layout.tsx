@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Recursive } from "next/font/google";
 import "./globals.css";
 import HeaderTop from "@/components/HeaderTop";
 import HeaderMain from "@/components/HeaderMain";
@@ -9,13 +9,15 @@ import { Toaster } from "sonner";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import Providers from "./Providers";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MobNavbar from "@/components/MobNavbar";
 import Footer from "@/components/Footer";
+import CookieBanner from "@/components/CookieBanner";
 
-const Bricolage = Bricolage_Grotesque({
+const recursive = Recursive({
     subsets: ["latin"],
 });
 
@@ -33,14 +35,16 @@ export default async function RootLayout({
 
     return (
         <html lang='en'>
+            <GoogleAnalytics GA_MEASUREMENT_ID='G-xxxxxxxxxx' />
             <Providers>
-                <body className={Bricolage.className}>
+                <body className={recursive.className}>
                     <HeaderTop />
                     <HeaderMain />
                     <Navbar />
                     <MobNavbar />
                     {children}
                     <Toaster position='top-right' />
+                    <CookieBanner />
                     <Footer />
                 </body>
             </Providers>

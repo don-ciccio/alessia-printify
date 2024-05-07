@@ -15,11 +15,11 @@ const CheckoutSuccess = async ({
     const response = await fetchCheckoutData(searchParams.session_id);
 
     if (response !== undefined && response.metadata) {
-        /*  await sendEmail(response); */
+        await sendEmail(response);
     }
 
     return (
-        <section className='pt-12'>
+        <section className='pt-12 h-screen container'>
             <div className='flex flex-col gap-2'>
                 {response !== undefined &&
                 response.metadata &&

@@ -2,9 +2,9 @@ import { NextResponse, NextRequest } from "next/server";
 const nodemailer = require("nodemailer");
 
 export async function POST(request: NextRequest) {
-    const { name, email, message, subject } = await request.json();
+    const { name, email, html, subject } = await request.json();
 
-    if (!name || !email || !message || !subject) {
+    if (!name || !email || !html || !subject) {
         return NextResponse.json(
             { message: "We need more information to send an email!" },
             { status: 400 }
@@ -28,10 +28,7 @@ export async function POST(request: NextRequest) {
         to: email,
         replyTo: process.env.NEXT_PUBLIC_PERSONAL_EMAIL,
         subject: subject,
-        html: ` 
-            <p>Hello ${name}!</p>
-            <p>${message}</p>
-            `,
+        html: html,
     };
 
     try {

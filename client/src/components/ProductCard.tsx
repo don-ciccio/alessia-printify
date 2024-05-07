@@ -35,7 +35,7 @@ const ProductCard: React.FC<propsType> = ({ img, title, tags, price, id }) => {
                     </span>
                     <h2 className='text-accent font-semibold'>{title}</h2>
                     <div className='font-bold text-lg flex gap-4 text-blackish'>
-                        prices from{" "}
+                        from{" "}
                         <span className='text-accent'>
                             {formatCurrency(price)}
                         </span>

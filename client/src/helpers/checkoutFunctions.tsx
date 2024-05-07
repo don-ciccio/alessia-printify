@@ -1,4 +1,8 @@
 import Stripe from "stripe";
+import { render } from "@react-email/render";
+import { OrderReceivedEmail } from "@/components/email/OrderReceivedEmail";
+
+const emailHtml = render(<OrderReceivedEmail />);
 
 export const fetchCheckoutData = async (
     sessionId: string
@@ -17,8 +21,7 @@ async function sendCustomerEmail(data: Stripe.Checkout.Session) {
     const emailCustomer = {
         name: data?.customer_details?.name,
         email: data?.customer_details?.email,
-        message:
-            "Your purchase has been successfully completed and will be delivered in the next few days.",
+        html: emailHtml,
         subject: "Successful purchase",
     };
 

@@ -58,6 +58,9 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
     const rating: number =
         reviews.reduce((acc: any, item: IReview) => item.rating + acc, 0) /
         reviews.length;
+    const minPrice = data.variants.reduce((prev, curr) =>
+        prev.price < curr.price ? prev : curr
+    );
     return (
         <div className='mx-auto'>
             <div className='px-6 pt-6 pb-12 lg:max-w-6xl max-w-2xl mx-auto'>
@@ -69,7 +72,7 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                         </h2>
                         <div className='flex flex-wrap gap-4 mt-4'>
                             <p className='text-2xl font-bold'>
-                                {formatCurrency(data.variants[0].price)}
+                                from {""} {formatCurrency(minPrice.price)}
                             </p>
                         </div>
                         <div className='flex space-x-2 mt-4'>

@@ -9,6 +9,7 @@ interface propsType {
     tags: string[];
     price: number;
     id: string;
+    lng: string;
 }
 
 export const formatCurrency = (amount = 0, currency = "EUR") =>
@@ -17,9 +18,16 @@ export const formatCurrency = (amount = 0, currency = "EUR") =>
         currency,
     }).format(amount / 100);
 
-const ProductCard: React.FC<propsType> = ({ img, title, tags, price, id }) => {
+const ProductCard: React.FC<propsType> = ({
+    img,
+    title,
+    tags,
+    price,
+    id,
+    lng,
+}) => {
     return (
-        <Link href={`products/${id}`}>
+        <Link href={`${lng}/products/${id}`}>
             <div className='border border-gray-200 rounded-xl max-w-[400px] min-h-[464px]'>
                 <div>
                     <img

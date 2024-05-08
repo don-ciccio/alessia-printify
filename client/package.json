@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@nanostores/react": "^0.7.2",
+    "accept-language": "^3.0.18",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "ga-gtag": "^1.2.0",
+    "i18next": "^23.11.3",
     "mongoose": "^8.3.2",
     "nanostores": "^0.10.3",
     "next": "14.2.3",

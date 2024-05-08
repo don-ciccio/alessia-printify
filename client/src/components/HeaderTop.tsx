@@ -1,5 +1,25 @@
+"use client";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
-const HeaderTop = () => {
+import { languages, fallbackLng } from "@/app/i18n/settings";
+import { usePathname, useRouter } from "next/navigation";
+
+interface propsType {
+    lng: string;
+}
+const HeaderTop: React.FC<propsType> = ({ lng }) => {
+    const pathname = usePathname();
+
+    const router = useRouter();
+    const changeLocale = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newLocale = event.target.value as string;
+
+        // ...if the user chose Arabic ("ar-eg"),
+        // router.replace() will prefix the pathname
+        // with this `newLocale`, effectively changing
+        // languages by navigating to `/ar-eg/about`.
+        router.replace(newLocale);
+    };
+
     return (
         <div className='border-b border-gray-200 hidden sm:block'>
             <div className='container py-4'>
@@ -28,12 +48,19 @@ const HeaderTop = () => {
                             <option value='USD $'>USD $</option>
                         </select>
                         <select
-                            className='text-gray-500 text-[13px] w-[80px]'
+                            className='text-gray-500 text-[13px] w-[80px] cursor-pointer'
                             name='language'
                             id='language'
+                            value={pathname}
+                            onChange={changeLocale}
                         >
-                            <option value='English'>English</option>
-                            <option value='Italian'>Italian</option>
+                            {languages.map((l, index) => {
+                                return (
+                                    <option value={`/${l}`} key={index}>
+                                        {l}
+                                    </option>
+                                );
+                            })}
                         </select>
                     </div>
                 </div>

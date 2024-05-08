@@ -1,0 +1,11 @@
+{
+  "new-products": "New Products",
+  "menu": {
+    "home": "Home",
+    "t-shirts": "T-shirts",
+    "hoodies": "Hoodies",
+    "mugs": "Mugs",
+    "blog": "Blog",
+    "hot-offers": "Hot offers"
+  }
+}

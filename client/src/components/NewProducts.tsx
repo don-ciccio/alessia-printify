@@ -1,6 +1,7 @@
 import { Product } from "@/libs/printify/client";
 import React from "react";
 import ProductCard from "./ProductCard";
+import { useTranslation } from "@/app/i18n";
 
 async function getData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products`, {
@@ -18,13 +19,20 @@ async function getData() {
     return res.json();
 }
 
-const NewProducts = async () => {
-    const data = await getData();
+interface propsType {
+    lng: string;
+}
 
+const NewProducts: React.FC<propsType> = async ({ lng }) => {
+    const data = await getData();
+    const { t } = await useTranslation(lng);
     return (
         <div>
             <div className='container py-16'>
-                <h2 className='font-medium text-2xl pb-4'>New Products</h2>
+                <h2 className='font-medium text-2xl pb-4'>
+                    {" "}
+                    {t("new-products")}
+                </h2>
                 <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10'>
                     {data.data.map((item: Product) => {
                         const minPrice = item.variants.reduce((prev, curr) =>
@@ -39,6 +47,7 @@ const NewProducts = async () => {
                                 desc={item.description}
                                 price={minPrice.price}
                                 tags={item.tags}
+                                lng={lng}
                             />
                         );
                     })}

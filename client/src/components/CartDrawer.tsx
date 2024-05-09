@@ -47,7 +47,7 @@ const CartDrawer: React.FC<propsType> = ({ lng }) => {
                         </header>
                         {cartItems?.length ? (
                             cartItems.map((item, id) => (
-                                <div className='flex w-full px-5 mb-5' key={id}>
+                                <div className='flex w-full p-5 mb-5' key={id}>
                                     <div className='w-[85px]'>
                                         <img
                                             className='w-16 h-16 border rounded-md'

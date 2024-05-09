@@ -186,15 +186,13 @@ class PrintifyClient {
         shopId: number,
         pagination: {
             limit: number;
-            page: number;
         }
     ) {
         const data = await this.callApi<GetAllProductsResponse>({
             method: "GET",
             path: `/shops/${shopId}/products.json`,
             searchParams: {
-                limit: pagination.limit.toString(),
-                page: pagination.page.toString(),
+                limit: pagination?.limit.toString(),
             },
         });
         return data;

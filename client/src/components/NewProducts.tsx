@@ -7,6 +7,7 @@ async function getData() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
+        cache: "no-cache",
     });
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

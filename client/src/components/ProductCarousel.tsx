@@ -13,7 +13,7 @@ interface propsType {
     title: string;
 }
 const ProductCarousel: React.FC<propsType> = ({ images, title }) => {
-    let result = images.map((a) => a.src);
+    let result = images?.map((a) => a.src);
 
     var settings = {
         customPaging: function (i: number) {
@@ -31,7 +31,7 @@ const ProductCarousel: React.FC<propsType> = ({ images, title }) => {
         <div className='w-full lg:sticky top-4 sm:flex gap-2'>
             <div className='space-y-3 w-full max-sm:mb-4 max-sm:gap-4'>
                 <Slider {...settings}>
-                    {result.slice(0, 4).map((img, id) => (
+                    {result?.slice(0, 4).map((img, id) => (
                         <div key={id}>
                             <img
                                 src={img}

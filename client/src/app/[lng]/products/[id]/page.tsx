@@ -18,6 +18,7 @@ async function getData(id: string): Promise<Product> {
         {
             method: "GET",
             headers: { "Content-Type": "application/json" },
+            cache: "no-cache",
         }
     );
     // The return value is *not* serialized

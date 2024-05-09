@@ -32,10 +32,11 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id, lng }) => {
                     <span>
                         <HiCheckCircle size={25} />
                     </span>
-                    Added to cart
+                    {t("added-to-cart")}
                 </div>
             );
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [id]
     );
 
@@ -68,7 +69,7 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id, lng }) => {
 
     return (
         <div className='mt-8'>
-            <h3 className='text-lg font-bold'>Sizes</h3>
+            <h3 className='text-lg font-bold'>{t("sizes")}</h3>
             <div className='flex flex-wrap gap-4 mt-4'>
                 <div className='relative bg-transparent w-full'>
                     <select

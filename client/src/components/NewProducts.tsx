@@ -25,6 +25,7 @@ interface propsType {
 
 const NewProducts: React.FC<propsType> = async ({ lng }) => {
     const data = await getData();
+
     const { t } = await useTranslation(lng);
     return (
         <div>
@@ -34,8 +35,8 @@ const NewProducts: React.FC<propsType> = async ({ lng }) => {
                     {t("new-products")}
                 </h2>
                 <div className='grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 xl:gap-x-20 xl:gap-y-10'>
-                    {data.data.map((item: Product) => {
-                        const minPrice = item.variants.reduce((prev, curr) =>
+                    {data.data?.map((item: Product) => {
+                        const minPrice = item.variants?.reduce((prev, curr) =>
                             prev.price < curr.price ? prev : curr
                         );
                         return (
@@ -43,9 +44,9 @@ const NewProducts: React.FC<propsType> = async ({ lng }) => {
                                 id={item.id}
                                 key={item.id}
                                 title={item.title}
-                                img={item.images[0].src}
+                                img={item.images[0]?.src}
                                 desc={item.description}
-                                price={minPrice.price}
+                                price={minPrice?.price}
                                 tags={item.tags}
                                 lng={lng}
                             />

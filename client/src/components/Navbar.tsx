@@ -11,22 +11,22 @@ const Navbar: React.FC<propsType> = async ({ lng }) => {
         <div className='hidden lg:block'>
             <div className='container'>
                 <div className='flex w-fit gap-10 mx-auto font-semibold text-[19px] py-4 text-blackish'>
-                    <Link className='navbar__link relative' href='/'>
+                    <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.home")}
                     </Link>
-                    <Link className='navbar__link relative' href='/'>
+                    <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.t-shirts")}
                     </Link>
-                    <Link className='navbar__link relative' href='/'>
+                    <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.hoodies")}
                     </Link>
-                    <Link className='navbar__link relative' href='/'>
+                    <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.mugs")}
                     </Link>
-                    <Link className='navbar__link relative' href='/'>
+                    <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.blog")}
                     </Link>
-                    <Link className='navbar__link relative' href='/'>
+                    <Link className='navbar__link relative' href={`/${lng}/`}>
                         {t("menu.hot-offers")}
                     </Link>
                 </div>

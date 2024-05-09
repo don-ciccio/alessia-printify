@@ -86,20 +86,20 @@ const CartDrawer: React.FC<propsType> = ({ lng }) => {
                                 </div>
                             ))
                         ) : (
-                            <div className='flex flex-col w-full px-5 mb-5'>
+                            <div className='flex flex-col w-full p-5 mb-5'>
                                 <p className='mb-4 text-base'>
                                     {t("empty-cart")}
                                 </p>
                             </div>
                         )}
-                        {cartItems?.length ? (
+                        {cartItems?.length && cartItems?.length > 0 ? (
                             <div className='absolute flex bottom-4 w-full items-center justify-center'>
                                 <Link
                                     onClick={() => setIsOpen(false)}
                                     href={"/checkout"}
                                     className='w-2/3 text-center text-base p-2.5 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
                                 >
-                                    Proceed to Checkout
+                                    {t("proceed-to-checkout")}
                                 </Link>
                             </div>
                         ) : null}
@@ -126,8 +126,7 @@ const CartDrawer: React.FC<propsType> = ({ lng }) => {
                         </header>
                         <div className='flex flex-col w-full px-5 mb-5'>
                             <p className='mb-4 text-base'>
-                                Not registered? You must be in order to save
-                                your products in the shopping cart.
+                                {t("not-registered")}
                             </p>
                             <Link
                                 className='flex font-medium	 items-center bg-accent justify-center text-sm min-w-[160px] max-w-[160px] h-[40px] px-[10px] rounded-lg border border-solid border-accent text-white transition-all hover:bg-blackish hover:border-[#454545]'

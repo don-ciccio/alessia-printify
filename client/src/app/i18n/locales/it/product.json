@@ -1,4 +1,13 @@
 {
     "from": "da",
-    "add-to-cart": "Aggiungi al carrello"
+    "add-to-cart": "Aggiungi al carrello",
+    "added-to-cart": "Aggiunto al carrello",
+    "sizes": "Misure",
+    "description": "Descrizione",
+    "reviews": "Recensioni",
+    "no-reviews": "Non ci sono ancora recensioni",
+    "add-review": "Aggiungi recensione",
+    "rating": "Valutazione",
+    "comment": "Recensione",
+    "submit": "Pubblica"
 }

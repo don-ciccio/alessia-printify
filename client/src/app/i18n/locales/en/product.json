@@ -1,4 +1,13 @@
 {
     "from": "from",
-    "add-to-cart":"Add to cart"
+    "add-to-cart":"Add to cart",
+    "added-to-cart":"Added to cart",
+    "sizes": "Sizes",
+    "description": "Description",
+    "reviews": "Reviews",
+    "no-reviews": "There are no reviews yet",
+    "add-reviews": "Add Review",
+    "rating": "Rating",
+    "comment": "Comment",
+    "submit": "Submit"
 }

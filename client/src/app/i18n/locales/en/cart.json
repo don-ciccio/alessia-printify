@@ -1,4 +1,6 @@
 {
     "title": "Shopping cart",
-    "empty-cart": "Your cart is empty. Start adding products!"
+    "empty-cart": "Your cart is empty. Start adding products!",
+    "proceed-to-checkout": "Proceed to checkout",
+    "not-registered": "Not registered? You must be in order to save your products in the shopping cart."
 }

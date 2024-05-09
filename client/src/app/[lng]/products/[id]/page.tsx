@@ -63,7 +63,7 @@ const ProductDetails = async ({
     const rating: number =
         reviews.reduce((acc: any, item: IReview) => item.rating + acc, 0) /
         reviews.length;
-    const minPrice = data.variants.reduce((prev, curr) =>
+    const minPrice = data.variants?.reduce((prev, curr) =>
         prev.price < curr.price ? prev : curr
     );
     return (
@@ -78,7 +78,7 @@ const ProductDetails = async ({
                         <div className='flex flex-wrap gap-4 mt-4'>
                             <p className='text-2xl font-bold'>
                                 {t("from")} {""}{" "}
-                                {formatCurrency(minPrice.price)}
+                                {formatCurrency(minPrice?.price)}
                             </p>
                         </div>
                         <div className='flex space-x-2 mt-4'>
@@ -86,22 +86,25 @@ const ProductDetails = async ({
                         </div>
                         <ProductAddToCart id={data.id} lng={params.lng} />
                         <div className='mt-8'>
-                            <h3 className='text-lg font-bold'>Description</h3>
+                            <h3 className='text-lg font-bold'>
+                                {" "}
+                                {t("description")}
+                            </h3>
                             <div className='space-y-3 mt-4 text-base'>
                                 {data.description}
                             </div>
                         </div>
-                        {session && <AddReview id={data.id} />}
+                        {session && <AddReview id={data.id} lng={params.lng} />}
                         <div className='mt-8 max-w-md'>
                             <div className='text-xl md:text-2xl  pt-4 pb-3'>
                                 <span className='font-bold text-lg'>
-                                    Reviews (
+                                    {t("reviews")} (
                                     {reviews.length > 0 ? reviews.length : "0"})
                                 </span>
                             </div>
                             {reviews?.length === 0 && (
                                 <Message variant='info'>
-                                    There are no Reviews yet
+                                    {t("no-reviews")}
                                 </Message>
                             )}
 

@@ -1,4 +1,6 @@
 {
     "title": "Carrello",
-    "empty-cart": "Il tuo carrello è vuoto. Aggiungi dei prodotti!"
+    "empty-cart": "Il tuo carrello è vuoto. Aggiungi dei prodotti!",
+    "proceed-to-checkout": "Vai al checkout",
+    "not-registered": "Non sei registrato? Devi essere registrato per poter salvare i tuoi prodotti nel carrello."
 }

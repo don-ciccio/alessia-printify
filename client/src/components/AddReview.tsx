@@ -8,17 +8,19 @@ import {
     reviewProductRequest,
 } from "@/state/products";
 import { Message } from "@/components/ui/Message";
-import Select from "@/components/ui/Select";
 import { useRouter } from "next/navigation";
 import RatingStar from "./RatingStar/RatingStar";
+import { useTranslation } from "@/app/i18n/client";
 
 type AddReviewProps = {
     id: string;
+    lng: string;
 };
 
-export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
+export const AddReview: React.FC<AddReviewProps> = ({ id, lng }) => {
     const error = useStore(errorReviewProduct);
-    const loading = useStore(loadingReviewProduct);
+    const { t } = useTranslation(lng, "product");
+
     const [comment, setComment] = useState<string>("");
     const [rating, setRating] = useState<number>(0);
     const router = useRouter();
@@ -47,7 +49,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
     return (
         <div className='w-full'>
             <h2 className='text-lg font-bold   pt-6 pb-2 mx-auto'>
-                Add Review
+                {t("add-review")}
             </h2>
 
             <div>
@@ -59,7 +61,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
                             className='block text-base mb-1'
                             htmlFor='rating'
                         >
-                            Rating
+                            {t("rating")}
                         </label>
                         <RatingStar
                             onChange={onChange}
@@ -80,7 +82,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
                             className='block text-base mb-1'
                             htmlFor='comment'
                         >
-                            Comment
+                            {t("comment")}
                         </label>
                         <textarea
                             name='comment'
@@ -97,7 +99,7 @@ export const AddReview: React.FC<AddReviewProps> = ({ id }) => {
                             className='mt-4 px-4 py-2 bg-accent hover:bg-blackish text-white font-bold rounded-lg'
                             type='submit'
                         >
-                            Submit
+                            {t("submit")}
                         </button>
                     </div>
                 </form>

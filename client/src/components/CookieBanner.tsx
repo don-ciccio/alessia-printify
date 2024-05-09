@@ -3,10 +3,14 @@
 import Link from "next/link";
 import { getLocalStorage, setLocalStorage } from "@/helpers/storageHelper";
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/app/i18n/client";
 
-export default function CookieBanner() {
+interface propsType {
+    lng: string;
+}
+const CookieBanner: React.FC<propsType> = ({ lng }) => {
     const [cookieConsent, setCookieConsent] = useState(false);
-
+    const { t } = useTranslation(lng, "cookie");
     useEffect(() => {
         const storedCookieConsent = getLocalStorage("cookie_consent", null);
 
@@ -31,12 +35,9 @@ export default function CookieBanner() {
             }`}
         >
             <p className='max-w-4xl text-sm leading-6 text-gray-900'>
-                This website uses cookies to enhance your browsing experience,
-                analyze site traffic, and serve better user experiences. By
-                continuing to use this site, you consent to our use of cookies.
-                Learn more in our{" "}
+                {t("cookie")}{" "}
                 <Link className='font-semibold text-accent' href='/cookies'>
-                    cookie policy
+                    cookie
                 </Link>
             </p>
 
@@ -47,17 +48,18 @@ export default function CookieBanner() {
                         type='button'
                         className='rounded-md bg-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900'
                     >
-                        Accept all 🍪
+                        {t("accept")} 🍪
                     </button>
                     <button
                         onClick={() => setCookieConsent(false)}
                         type='button'
                         className='text-sm font-semibold leading-6 text-blackish'
                     >
-                        Reject all
+                        {t("reject")}
                     </button>
                 </div>
             </div>
         </div>
     );
-}
+};
+export default CookieBanner;

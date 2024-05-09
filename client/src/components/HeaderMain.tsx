@@ -22,7 +22,11 @@ async function getData() {
     return res.json();
 }
 
-const HeaderMain = async () => {
+interface propsType {
+    lng: string;
+}
+
+const HeaderMain: React.FC<propsType> = async ({ lng }) => {
     const data = await getData();
     const session: Session | null = await getServerSession(authOptions);
 
@@ -35,7 +39,7 @@ const HeaderMain = async () => {
                 >
                     {data[0].title}
                 </Link>
-                <SearchInput />
+                <SearchInput lng={lng} />
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>
                     {session?.user ? (
                         <Link href={"/profile"}>
@@ -53,7 +57,7 @@ const HeaderMain = async () => {
                             0
                         </div>
                     </div>
-                    <CartDrawer />
+                    <CartDrawer lng={lng} />
                 </div>
             </div>
         </div>

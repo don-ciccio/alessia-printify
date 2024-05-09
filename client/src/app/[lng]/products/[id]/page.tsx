@@ -10,6 +10,7 @@ import { Product } from "@/libs/printify/client";
 import { IReview } from "@/types/types";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
+import { useTranslation } from "@/app/i18n";
 
 async function getData(id: string): Promise<Product> {
     const res = await fetch(
@@ -50,11 +51,15 @@ async function getReviews(id: string): Promise<any> {
     return res.json();
 }
 
-const ProductDetails = async ({ params }: { params: { id: string } }) => {
+const ProductDetails = async ({
+    params,
+}: {
+    params: { id: string; lng: string };
+}) => {
     const data = await getData(params.id);
     const { reviews } = await getReviews(params.id);
     const session: Session | null = await getServerSession(authOptions);
-
+    const { t } = await useTranslation(params.lng, "product");
     const rating: number =
         reviews.reduce((acc: any, item: IReview) => item.rating + acc, 0) /
         reviews.length;
@@ -72,13 +77,14 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                         </h2>
                         <div className='flex flex-wrap gap-4 mt-4'>
                             <p className='text-2xl font-bold'>
-                                from {""} {formatCurrency(minPrice.price)}
+                                {t("from")} {""}{" "}
+                                {formatCurrency(minPrice.price)}
                             </p>
                         </div>
                         <div className='flex space-x-2 mt-4'>
                             <RatingMain value={rating} text={""} />
                         </div>
-                        <ProductAddToCart id={data.id} />
+                        <ProductAddToCart id={data.id} lng={params.lng} />
                         <div className='mt-8'>
                             <h3 className='text-lg font-bold'>Description</h3>
                             <div className='space-y-3 mt-4 text-base'>

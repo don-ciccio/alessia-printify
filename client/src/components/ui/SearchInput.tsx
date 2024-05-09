@@ -2,8 +2,14 @@
 import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { BsSearch } from "react-icons/bs";
+import { useTranslation } from "@/app/i18n/client";
 
-const SearchInput = () => {
+interface propsType {
+    lng: string;
+}
+
+const SearchInput: React.FC<propsType> = ({ lng }) => {
+    const { t } = useTranslation(lng);
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -25,7 +31,7 @@ const SearchInput = () => {
                 onChange={(e) => {
                     handleChange(e.target.value);
                 }}
-                placeholder='Enter any product name...'
+                placeholder={t("search.placeholder")}
             />
             <BsSearch
                 className='absolute top-0 right-0 mr-3 mt-3 text-gray-400'

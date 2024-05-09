@@ -9,15 +9,17 @@ import { toast } from "sonner";
 
 import React from "react";
 import { formatCurrency } from "./ProductCard";
+import { useTranslation } from "@/app/i18n/client";
 
 type ProductDetailsProps = {
     id: string;
+    lng: string;
 };
 
-const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
+const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id, lng }) => {
     const product = useStore(productGetState);
     const [selectedVariant, setSelectedVariant] = useState<any>("");
-
+    const { t } = useTranslation(lng, "product");
     const cartItems = useStore(cart);
 
     const [qty, setQty] = useState<string | number>(1);
@@ -63,7 +65,7 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
         const newVariant = e.target.value;
         setSelectedVariant(newVariant);
     };
-    console.log(selectedVariant);
+
     return (
         <div className='mt-8'>
             <h3 className='text-lg font-bold'>Sizes</h3>
@@ -106,7 +108,7 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id }) => {
                 type='button'
                 className='w-full mt-4 px-4 py-3 bg-accent hover:bg-blackish text-white font-bold rounded-lg'
             >
-                Add to cart
+                {t("add-to-cart")}
             </button>
         </div>
     );

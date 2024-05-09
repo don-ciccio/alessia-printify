@@ -50,12 +50,12 @@ export default async function RootLayout({
             <Providers>
                 <body className={recursive.className}>
                     <HeaderTop lng={lng} />
-                    <HeaderMain />
+                    <HeaderMain lng={lng} />
                     <Navbar lng={lng} />
                     <MobNavbar />
                     {children}
                     <Toaster position='top-right' />
-                    <CookieBanner />
+                    <CookieBanner lng={lng} />
                     <Footer />
                 </body>
             </Providers>

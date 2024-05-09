@@ -1,5 +1,6 @@
 {
   "new-products": "Ultimi arrivi",
+  "from": "da",
   "menu": {
     "home": "Home",
     "t-shirts": "T-shirts",
@@ -7,5 +8,6 @@
     "mugs": "Tazze",
     "blog": "Blog",
     "hot-offers": "Promozioni"
-  }
+  },
+  "search": {"placeholder": "Cerca tra i prodotti..."}
 }

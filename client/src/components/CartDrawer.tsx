@@ -8,10 +8,15 @@ import { formatCurrency } from "./ProductCard";
 import { HiOutlineShoppingBag, HiX } from "react-icons/hi";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useTranslation } from "@/app/i18n/client";
 
-const CartDrawer = () => {
+interface propsType {
+    lng: string;
+}
+
+const CartDrawer: React.FC<propsType> = ({ lng }) => {
     const { data: session } = useSession();
-
+    const { t } = useTranslation(lng, "cart");
     const [isOpen, setIsOpen] = React.useState(false);
     const cartItems = useStore(cart);
     const total = getTotalItems();
@@ -37,6 +42,9 @@ const CartDrawer = () => {
                 </div>
                 <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
                     <div className='flex flex-col text-blackish'>
+                        <header className='p-5 font-bold text-2xl text-blackish'>
+                            {t("title")}
+                        </header>
                         {cartItems?.length ? (
                             cartItems.map((item, id) => (
                                 <div className='flex w-full px-5 mb-5' key={id}>
@@ -80,7 +88,7 @@ const CartDrawer = () => {
                         ) : (
                             <div className='flex flex-col w-full px-5 mb-5'>
                                 <p className='mb-4 text-base'>
-                                    Your cart is empty. Start adding products!
+                                    {t("empty-cart")}
                                 </p>
                             </div>
                         )}
@@ -112,7 +120,10 @@ const CartDrawer = () => {
                     </div>
                 </div>
                 <Drawer isOpen={isOpen} setIsOpen={setIsOpen}>
-                    <div className='flex  text-blackish'>
+                    <div className='flex flex-col  text-blackish'>
+                        <header className='p-5 font-bold text-2xl text-blackish'>
+                            {t("title")}
+                        </header>
                         <div className='flex flex-col w-full px-5 mb-5'>
                             <p className='mb-4 text-base'>
                                 Not registered? You must be in order to save

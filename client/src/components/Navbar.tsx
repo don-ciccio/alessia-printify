@@ -32,12 +32,6 @@ const Navbar: React.FC<propsType> = async ({ lng }) => {
                     >
                         {t("menu.hoodies")}
                     </Link>
-                    <Link className='navbar__link relative' href={`/${lng}`}>
-                        {t("menu.blog")}
-                    </Link>
-                    <Link className='navbar__link relative' href={`/${lng}/`}>
-                        {t("menu.hot-offers")}
-                    </Link>
                 </div>
             </div>
         </div>

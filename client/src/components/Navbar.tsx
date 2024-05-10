@@ -14,14 +14,23 @@ const Navbar: React.FC<propsType> = async ({ lng }) => {
                     <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.home")}
                     </Link>
-                    <Link className='navbar__link relative' href={`/${lng}`}>
+                    <Link
+                        className='navbar__link relative'
+                        href={`/${lng}/T-shirts`}
+                    >
                         {t("menu.t-shirts")}
                     </Link>
-                    <Link className='navbar__link relative' href={`/${lng}`}>
-                        {t("menu.hoodies")}
+                    <Link
+                        className='navbar__link relative'
+                        href={`/${lng}/Indoor`}
+                    >
+                        {t("menu.indoor")}
                     </Link>
-                    <Link className='navbar__link relative' href={`/${lng}`}>
-                        {t("menu.mugs")}
+                    <Link
+                        className='navbar__link relative'
+                        href={`/${lng}/Hoodies`}
+                    >
+                        {t("menu.hoodies")}
                     </Link>
                     <Link className='navbar__link relative' href={`/${lng}`}>
                         {t("menu.blog")}

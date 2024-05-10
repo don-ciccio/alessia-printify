@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { BsSearch } from "react-icons/bs";
 import { useTranslation } from "@/app/i18n/client";
+import { Langar } from "next/font/google";
 
 interface propsType {
     lng: string;
@@ -15,9 +16,9 @@ const SearchInput: React.FC<propsType> = ({ lng }) => {
 
     const handleChange = (term: string) => {
         if (term) {
-            router.replace(`/search?q=${encodeURIComponent(term)}`);
+            router.replace(`/${lng}/search?q=${encodeURIComponent(term)}`);
         } else {
-            router.replace("/search");
+            router.replace(`/${lng}/search`);
         }
     };
 

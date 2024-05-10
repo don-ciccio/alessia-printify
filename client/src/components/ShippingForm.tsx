@@ -12,7 +12,11 @@ import { useSession } from "next-auth/react";
 import { cart } from "@/state/cart";
 import { stripeCountries } from "@/libs/stripeCountryCodes";
 
-const ShippingForm = () => {
+interface propsType {
+    lng: string;
+}
+
+const ShippingForm: React.FC<propsType> = ({ lng }) => {
     const labelStyles = "block text-base mb-1";
 
     const { data: session } = useSession();
@@ -93,6 +97,7 @@ const ShippingForm = () => {
                         userId: session.user._id,
                         deliveryData: deliveryData,
                         shippingCost: shippingCost,
+                        lng: lng,
                     }
                 );
 

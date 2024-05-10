@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(request: NextRequest) {
     try {
-        const { lineItems, userId, deliveryData, shippingCost } =
+        const { lineItems, userId, deliveryData, shippingCost, lng } =
             await request.json();
 
         if (!lineItems || !userId) throw Error("Missing data");
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
             ],
 
             mode: "payment",
-            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/result?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${process.env.NEXT_PUBLIC_APP_URL}/${lng}/result?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`,
 
             // Passes the shipping data collected before stripe session to the web hook

@@ -8,7 +8,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 async function handler(req: NextRequest, res: NextResponse) {
     const query = new URL(req.url).searchParams;
     const session_id: string = query.get("session_id") as string;
-
+    console.log(query);
+    console.log(session_id);
     try {
         if (!session_id.startsWith("cs_")) {
             throw Error("Incorrect CheckoutSession ID.");

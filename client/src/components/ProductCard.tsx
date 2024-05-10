@@ -30,7 +30,7 @@ const ProductCard: React.FC<propsType> = async ({
     const { t } = await useTranslation(lng);
 
     return (
-        <Link href={`${lng}/products/${id}`}>
+        <Link href={`/${lng}/products/${id}`}>
             <div className='border border-gray-200 rounded-xl max-w-[400px] min-h-[464px]'>
                 <div>
                     <img

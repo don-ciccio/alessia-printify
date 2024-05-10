@@ -54,7 +54,7 @@ export const addToCart = async (
                     (variant) => variant.id === item.variant_id
                 )
         );
-        console.log(existingCartItem);
+
         // Selected Cart item has been previously selected
         if (existingCartItem) {
             // Update the existing item's quantity

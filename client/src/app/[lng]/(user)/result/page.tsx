@@ -13,7 +13,7 @@ const CheckoutSuccess = async ({
     searchParams: { [session_id: string]: string };
 }) => {
     const response = await fetchCheckoutData(searchParams.session_id);
-
+    console.log(searchParams);
     if (response !== undefined && response.metadata) {
         await sendEmail(response);
     }

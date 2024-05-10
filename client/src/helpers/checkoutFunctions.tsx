@@ -49,7 +49,7 @@ async function sendOwnerEmail(data: Stripe.Checkout.Session) {
     const emailOwner = {
         name: "Danilo",
         email: "danilo.dalessio@gmail.com",
-        message: `${data?.customer_details?.name} has made a new purchase, his/her email is: ${data?.customer_details?.email}`,
+        html: `${data?.customer_details?.name} has made a new purchase, his/her email is: ${data?.customer_details?.email}`,
         subject: "A new purchase",
     };
 

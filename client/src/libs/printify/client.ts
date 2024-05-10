@@ -198,6 +198,14 @@ class PrintifyClient {
         return data;
     }
 
+    async getProducts(shopId: number) {
+        const data = await this.callApi<GetAllProductsResponse>({
+            method: "GET",
+            path: `/shops/${shopId}/products.json`,
+        });
+        return data;
+    }
+
     async getProductById(shopId: number, productId: string) {
         const data = await this.callApi<GetProductResponse>({
             method: "GET",

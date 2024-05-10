@@ -1,6 +1,6 @@
 import ShippingForm from "@/components/ShippingForm";
 
-const Checkout = () => {
+const Checkout = ({ params }: { params: { id: string; lng: string } }) => {
     return (
         <div className='mx-auto'>
             <div className='px-6 pt-6 pb-12 lg:max-w-6xl max-w-2xl mx-auto w-full'>
@@ -11,7 +11,7 @@ const Checkout = () => {
                     <h1 className='text-2xl font-bold text-blackish mb-4'>
                         Checkout
                     </h1>
-                    <ShippingForm />
+                    <ShippingForm lng={params.lng} />
                 </div>
             </div>
         </div>

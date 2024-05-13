@@ -1,33 +1,20 @@
-import { PrintifyClient } from "@/libs/printify/client";
 import { NextResponse } from "next/server";
+import { GelatoClient } from "@/libs/gelato/client";
 
-export type GetShopsResponse = {
-    id: number;
-    title: string;
-    sales_channel: string;
-}[];
-
-const client = new PrintifyClient({
-    token: process.env.PRINTIFY_TOKEN!,
+const client = new GelatoClient({
+    token: process.env.GELATO_API_KEY!,
     version: "v1",
+    base_url: "https://ecommerce.gelatoapis.com/",
 });
 
 export async function GET() {
-    const { data: shops } = await client.callApi<GetShopsResponse>({
-        method: "GET",
-        path: "/shops.json",
-    });
+    const { data: shops, error } = await client.getStores();
 
     if (!shops) {
-        return NextResponse.json({
-            message: "Shop not found",
-            status: 404,
-        });
+        return NextResponse.json({ message: error?.message, status: 400 });
     }
 
-    const { data, error } = await client.getAllProducts(shops[0]?.id, {
-        limit: 8,
-    });
+    const { data } = await client.getAllProducts(shops.stores[0].id);
 
     if (!data) {
         return NextResponse.json({ message: error?.message, status: 400 });

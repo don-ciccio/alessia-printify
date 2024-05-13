@@ -7,27 +7,46 @@ interface propsType {
     img: string;
     title: string;
     desc: string;
-    tags: string[];
-    price: number;
+    price: string;
     id: string;
     lng: string;
 }
 
-export const formatCurrency = (amount = 0, currency = "EUR") =>
-    new Intl.NumberFormat("it-IT", {
+export const formatCurrency = (amount = 0, currency = "USD") =>
+    new Intl.NumberFormat("us-US", {
         style: "currency",
         currency,
-    }).format(amount / 100);
+    }).format(amount);
+
+async function getData(id: string) {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/products/${id}/prices`,
+        {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-cache",
+        }
+    );
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+}
 
 const ProductCard: React.FC<propsType> = async ({
     img,
     title,
-    tags,
-    price,
     id,
     lng,
+    price,
 }) => {
     const { t } = await useTranslation(lng);
+    const data = await getData(price);
 
     return (
         <Link href={`/${lng}/products/${id}`}>
@@ -41,14 +60,11 @@ const ProductCard: React.FC<propsType> = async ({
                 </div>
 
                 <div className='space-y-2 py-2 px-4'>
-                    <span className='text-white px-2 py-1 mr-3 uppercase text-xs font-semibold bg-accent rounded-2xl'>
-                        {tags[0]}
-                    </span>
                     <h2 className='text-accent font-semibold'>{title}</h2>
                     <div className='font-bold text-lg flex gap-4 text-blackish'>
                         {t("from")}{" "}
                         <span className='text-accent'>
-                            {formatCurrency(price)}
+                            {formatCurrency(data[0].price)}
                         </span>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ const HeaderMain: React.FC<propsType> = async ({ lng }) => {
                     href={"/"}
                     className='font-bold text-3xl text-center pb-4 sm:pb-0 text-blackish hover:text-accent cursor-pointer'
                 >
-                    {data[0].title}
+                    {data.stores[0].name}
                 </Link>
                 <SearchInput lng={lng} />
                 <div className='hidden lg:flex gap-4 text-gray-500 text-[30px]'>

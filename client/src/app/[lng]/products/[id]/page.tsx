@@ -12,7 +12,7 @@ import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import { useTranslation } from "@/app/i18n";
 
-async function getData(id: string): Promise<Product> {
+async function getData(id: string): Promise<any> {
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_APP_URL}/api/products/${id}`,
         {
@@ -64,14 +64,19 @@ const ProductDetails = async ({
     const rating: number =
         reviews.reduce((acc: any, item: IReview) => item.rating + acc, 0) /
         reviews.length;
-    const minPrice = data.variants?.reduce((prev, curr) =>
-        prev.price < curr.price ? prev : curr
+    const minPrice = data.variants?.reduce(
+        (prev: { price: number }, curr: { price: number }) =>
+            prev.price < curr.price ? prev : curr
     );
+    console.log(data);
     return (
         <div className='mx-auto'>
             <div className='px-6 pt-6 pb-12 lg:max-w-6xl max-w-2xl mx-auto'>
                 <div className='grid items-start grid-cols-1 lg:grid-cols-2 gap-8'>
-                    <ProductCarousel images={data.images} title={data.title} />
+                    <ProductCarousel
+                        images={data.productImages}
+                        title={data.title}
+                    />
                     <div>
                         <h2 className='text-2xl font-extrabold text-accent'>
                             {data.title}
@@ -92,7 +97,11 @@ const ProductDetails = async ({
                                 {t("description")}
                             </h3>
                             <div className='space-y-3 mt-4 text-base'>
-                                {data.description}
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: data.description,
+                                    }}
+                                />
                             </div>
                         </div>
                         {session && <AddReview id={data.id} lng={params.lng} />}

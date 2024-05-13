@@ -5,15 +5,13 @@ import Slider from "react-slick";
 
 interface propsType {
     images: {
-        src: string;
-        variant_ids: number[];
-        position: string;
-        is_default: boolean;
+        id: string;
+        fileUrl: string;
     }[];
     title: string;
 }
 const ProductCarousel: React.FC<propsType> = ({ images, title }) => {
-    let result = images?.map((a) => a.src);
+    let result = images?.map((a) => a.fileUrl);
 
     var settings = {
         customPaging: function (i: number) {

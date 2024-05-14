@@ -1,9 +1,17 @@
 "use client";
+import { useTranslation } from "@/app/i18n/client";
 import { UserDocument } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-const EditProfile = () => {
+interface propsType {
+    lng: string;
+}
+
+const EditProfile: React.FC<propsType> = ({ lng }) => {
+    const labelStyles = "block text-base mb-1";
+    const { t } = useTranslation(lng, "checkout");
+
     const [user, setUser] = useState<UserDocument>({} as UserDocument);
     const { data: session, update } = useSession();
 
@@ -14,19 +22,19 @@ const EditProfile = () => {
     }, [session]);
     return (
         <div className='grid gap-4 py-4'>
-            <div className='grid items-center grid-cols-4 gap-4'>
-                <label htmlFor='name' className='text-right'>
-                    Name
+            <div>
+                <label htmlFor='Phone' className={labelStyles}>
+                    {t("firstName")}
                 </label>
                 <input
                     id='name'
                     defaultValue={session?.user.name}
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
-                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
+                    className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none appearance-none focus:ring-1 ring-accent'
                 />
             </div>
-            <div className='grid items-center grid-cols-4 gap-4'>
-                <label htmlFor='Email' className='text-right'>
+            <div>
+                <label htmlFor='Email' className={labelStyles}>
                     Email
                 </label>
                 <input
@@ -39,9 +47,9 @@ const EditProfile = () => {
                     className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
                 />
             </div>
-            <div className='grid items-center grid-cols-4 gap-4'>
-                <label htmlFor='Phone' className='text-right'>
-                    Phone
+            <div>
+                <label htmlFor='Phone' className={labelStyles}>
+                    {t("phone")}
                 </label>
                 <input
                     id='phone'

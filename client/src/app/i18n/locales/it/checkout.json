@@ -1,0 +1,12 @@
+{
+    "title": "Indirizzo di spedizione",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "country": "Nazione",
+    "address": "Indirizzo",
+    "city": "Città",
+    "zip": "Codice Postale",
+    "customer": "Informazioni",
+    "phone": "Telefono",
+    "place": "Pagamento"
+}

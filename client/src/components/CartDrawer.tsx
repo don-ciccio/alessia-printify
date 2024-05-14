@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import Drawer from "./Drawer";
 import { useStore } from "@nanostores/react";
 import { getTotalItems, cart, removeFromCart } from "@/state/cart";
@@ -27,6 +27,17 @@ const CartDrawer: React.FC<propsType> = ({ lng }) => {
         },
         []
     );
+
+    useEffect(() => {
+        // Once Page loads prefill info from storage
+        const cartStorage = localStorage.getItem("cart")
+            ? JSON.parse(localStorage.getItem("cart") || "")
+            : null;
+
+        if (cartStorage) {
+            cart.set(cartStorage);
+        }
+    }, []);
 
     if (session?.user) {
         return (

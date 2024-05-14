@@ -1,0 +1,12 @@
+{
+    "title": "Shipping Address",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "country": "Country",
+    "address": "Address",
+    "city": "City",
+    "zip": "Zip Code",
+    "customer": "Customer Info",
+    "phone": "Phone",
+    "place": "Place Order"
+}

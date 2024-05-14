@@ -11,6 +11,7 @@ import { UserDocument } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { cart } from "@/state/cart";
 import { stripeCountries } from "@/libs/stripeCountryCodes";
+import { useTranslation } from "@/app/i18n/client";
 
 interface propsType {
     lng: string;
@@ -21,6 +22,7 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
 
     const { data: session } = useSession();
     const cartItems = useStore(cart);
+    const { t } = useTranslation(lng, "checkout");
 
     const [user, setUser] = useState<UserDocument>({} as UserDocument);
     const [isOpen, setIsOpen] = useState(false);
@@ -118,12 +120,14 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
         <form onSubmit={handleSubmit}>
             <div className='mb-6'>
                 <h2 className='text-xl font-semibold text-gray-700 dark:text-white mb-4'>
-                    Shipping Address
+                    {t("title")}
                 </h2>
                 <div className='flex flex-col gap-4 mb-5'>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                         <div>
-                            <label className={labelStyles}>First Name:</label>
+                            <label className={labelStyles}>
+                                {t("firstName")}:
+                            </label>
 
                             <input
                                 className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
@@ -135,7 +139,9 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                             />
                         </div>
                         <div>
-                            <label className={labelStyles}>Last Name:</label>
+                            <label className={labelStyles}>
+                                {t("lastName")}:
+                            </label>
                             <input
                                 className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
                                 value={deliveryData.last_name}
@@ -148,7 +154,9 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                     </div>
                     <div className='grid  grid-cols-1 lg:grid-cols-2 gap-4'>
                         <div className='relative bg-transparent w-full'>
-                            <label className={labelStyles}>Country:</label>
+                            <label className={labelStyles}>
+                                {t("country")}:
+                            </label>
                             <select
                                 className='w-full appearance-none row-start-1 col-start-1 bg-slate-50 border focus:ring-1 ring-accent rounded-lg p-2 outline-none cursor-pointer'
                                 name='country'
@@ -182,7 +190,9 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                             </span>
                         </div>
                         <div>
-                            <label className={labelStyles}>Address:</label>
+                            <label className={labelStyles}>
+                                {t("address")}:
+                            </label>
 
                             <input
                                 className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
@@ -196,7 +206,7 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                         <div>
-                            <label className={labelStyles}>City:</label>
+                            <label className={labelStyles}>{t("city")}:</label>
 
                             <input
                                 className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
@@ -208,7 +218,7 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                             />
                         </div>
                         <div>
-                            <label className={labelStyles}>Zip code:</label>
+                            <label className={labelStyles}>{t("zip")}:</label>
                             <input
                                 className='border-gray-200 border p-2 px-4 rounded-lg w-full outline-none focus:ring-1 ring-accent'
                                 value={deliveryData.zip}
@@ -221,7 +231,7 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                     </div>
                 </div>
                 <h2 className='text-xl font-semibold text-gray-700 dark:text-white mb-4'>
-                    Customer Info
+                    {t("customer")}
                 </h2>
                 <div className='flex flex-col gap-4 mb-5'>
                     <div className='grid  grid-cols-1 lg:grid-cols-2 gap-4'>
@@ -241,7 +251,7 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                         </div>
                         <div>
                             <label htmlFor='Phone' className={labelStyles}>
-                                Phone
+                                {t("phone")}
                             </label>
                             <input
                                 id='phone'
@@ -264,7 +274,7 @@ const ShippingForm: React.FC<propsType> = ({ lng }) => {
                         {isPending ? (
                             <Loader height={20} width={20} />
                         ) : (
-                            "Place Order"
+                            t("place")
                         )}
                     </button>
                 </div>

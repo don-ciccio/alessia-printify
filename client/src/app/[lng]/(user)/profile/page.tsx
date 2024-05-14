@@ -1,11 +1,16 @@
 import EditProfile from "@/components/EditProfile";
 import React from "react";
-
-const Profile = () => {
+import { Tab, Tabs } from "@/components/ui/Tabs";
+const Profile = ({ params }: { params: { lng: string } }) => {
     return (
         <div className='mx-auto'>
             <div className='px-6 pt-6 pb-12 lg:max-w-6xl max-w-2xl mx-auto min-h-screen'>
-                <EditProfile />
+                <Tabs>
+                    <Tab label='Profile'>
+                        <EditProfile lng={params.lng} />
+                    </Tab>
+                    <Tab label='Orders'>Tab 2</Tab>
+                </Tabs>
             </div>
         </div>
     );

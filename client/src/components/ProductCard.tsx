@@ -41,10 +41,18 @@ const ProductCard: React.FC<propsType> = async ({
                 </div>
 
                 <div className='space-y-2 py-2 px-4'>
-                    <span className='text-white px-2 py-1 mr-3 uppercase text-xs font-semibold bg-accent rounded-2xl'>
-                        {tags[0]}
-                    </span>
-                    <h2 className='text-accent font-semibold'>{title}</h2>
+                    {tags.slice(0, 2).map((tag, index) => (
+                        <span
+                            key={index}
+                            className='text-white px-2 py-1 mr-3 uppercase text-xs font-semibold bg-accent rounded-2xl'
+                        >
+                            {tag}
+                        </span>
+                    ))}
+
+                    <h2 className='text-accent font-semibold min-h-[48px]'>
+                        {title}
+                    </h2>
                     <div className='font-bold text-lg flex gap-4 text-blackish'>
                         {t("from")}{" "}
                         <span className='text-accent'>

@@ -52,6 +52,26 @@ async function getReviews(id: string): Promise<any> {
     return res.json();
 }
 
+async function getPrice(id: string) {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/products/${id}/prices`,
+        {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            cache: "no-cache",
+        }
+    );
+    // The return value is *not* serialized
+    // You can return Date, Map, Set, etc.
+
+    if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+}
+
 const ProductDetails = async ({
     params,
 }: {
@@ -64,11 +84,11 @@ const ProductDetails = async ({
     const rating: number =
         reviews.reduce((acc: any, item: IReview) => item.rating + acc, 0) /
         reviews.length;
-    const minPrice = data.variants?.reduce(
-        (prev: { price: number }, curr: { price: number }) =>
-            prev.price < curr.price ? prev : curr
+
+    const obj = data.metadata?.filter(
+        (item: { key: any }) => item.key === "primaryPreviewProductVariantKey"
     );
-    console.log(data);
+    const price = await getPrice(obj[0].value);
     return (
         <div className='mx-auto'>
             <div className='px-6 pt-6 pb-12 lg:max-w-6xl max-w-2xl mx-auto'>
@@ -84,7 +104,7 @@ const ProductDetails = async ({
                         <div className='flex flex-wrap gap-4 mt-4'>
                             <p className='text-2xl font-bold'>
                                 {t("from")} {""}{" "}
-                                {formatCurrency(minPrice?.price)}
+                                {formatCurrency(price[0].price)}
                             </p>
                         </div>
                         <div className='flex space-x-2 mt-4'>

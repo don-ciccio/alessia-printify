@@ -54,13 +54,20 @@ const EditProfile: React.FC<propsType> = ({ lng }) => {
                 <input
                     id='phone'
                     defaultValue={session?.user.phone}
-                    disabled={session?.user.image ? true : false}
                     onChange={(e) =>
                         setUser({ ...user, phone: e.target.value })
                     }
                     className='col-span-2 border-gray-200 border p-2 px-4 rounded-lg w-full outline-none appearance-none focus:ring-1 ring-accent'
                 />
             </div>
+            <button
+                onClick={() => {
+                    update({ ...user });
+                }}
+                className='w-2/3 text-center text-base p-2.5 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
+            >
+                Save changes
+            </button>
         </div>
     );
 };

@@ -1,5 +1,5 @@
-import { PrintifyClient } from "@/libs/printify/client";
-import { NextResponse } from "next/server";
+import { PrintifyClient, Product } from "@/libs/printify/client";
+import { NextRequest, NextResponse } from "next/server";
 
 export type GetShopsResponse = {
     id: number;
@@ -12,7 +12,10 @@ const client = new PrintifyClient({
     version: "v1",
 });
 
-export async function GET() {
+export async function GET(
+    req: NextRequest,
+    { params }: { params: { category: string } }
+) {
     const { data: shops } = await client.callApi<GetShopsResponse>({
         method: "GET",
         path: "/shops.json",
@@ -26,10 +29,15 @@ export async function GET() {
     }
 
     const { data, error } = await client.getProducts(shops[0]?.id);
+    if (data?.data) {
+        let filter = data.data.filter((item: Product) =>
+            item.tags.find((item) => item === params.category)
+        );
 
-    if (!data) {
-        return NextResponse.json({ message: error?.message, status: 400 });
+        if (!filter) {
+            return NextResponse.json({ message: error?.message, status: 400 });
+        }
+
+        return NextResponse.json(filter);
     }
-
-    return NextResponse.json(data);
 }

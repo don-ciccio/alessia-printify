@@ -116,6 +116,7 @@ export async function PUT(request: Request) {
                     id: userToUpdate._id,
                     name: userToUpdate.name,
                     email: userToUpdate.email,
+                    phone: userToUpdate.phone,
                     createdAt: userToUpdate.createdAt,
                     updatedAt: userToUpdate.updatedAt,
                 },

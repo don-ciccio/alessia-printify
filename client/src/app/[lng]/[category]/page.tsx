@@ -43,10 +43,7 @@ const CategoryProducts = async ({
     category: string;
     lng: string;
 }) => {
-    const products = await getData(category);
-    let filter = products.data.filter(
-        (item: Product) => item.tags[0] === category
-    );
+    const filter = await getData(category);
 
     return (
         <div className='container pb-16'>

@@ -18,7 +18,7 @@ const Tabs = ({ children }: any) => {
         setActiveTab(newActiveTab);
     };
     return (
-        <div className='max-w-md mx-auto'>
+        <div className='max-w-2xl mx-auto'>
             <div className='flex border-b border-gray-300'>
                 {children.map((child: any) => (
                     <button

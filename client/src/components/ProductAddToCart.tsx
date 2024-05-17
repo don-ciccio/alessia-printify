@@ -58,7 +58,7 @@ const ProductAddToCart: React.FC<ProductDetailsProps> = ({ id, lng }) => {
 
     const variants = React.useMemo(() => {
         return product?.variants?.filter((variant) => {
-            return variant.is_available === true;
+            return variant.is_enabled === true;
         });
     }, [product?.variants]);
 

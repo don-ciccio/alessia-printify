@@ -22,13 +22,13 @@ const Navbar: React.FC<propsType> = async ({ lng }) => {
                     </Link>
                     <Link
                         className='navbar__link relative'
-                        href={`/${lng}/Indoor`}
+                        href={`/${lng}/Posters`}
                     >
                         {t("menu.indoor")}
                     </Link>
                     <Link
                         className='navbar__link relative'
-                        href={`/${lng}/Hoodies`}
+                        href={`/${lng}/Sweatshirts`}
                     >
                         {t("menu.hoodies")}
                     </Link>

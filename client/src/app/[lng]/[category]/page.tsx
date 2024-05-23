@@ -67,7 +67,7 @@ const CategoryProducts = async ({
                         );
                     })
                 ) : (
-                    <div className='h-screen'>
+                    <div className='h-screen w-full'>
                         <h3 className='text-base text-center'>
                             No products found for &quot;{category}&quot;
                         </h3>

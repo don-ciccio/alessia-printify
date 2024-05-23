@@ -8,5 +8,10 @@
     "zip": "Codice Postale",
     "customer": "Informazioni",
     "phone": "Telefono",
-    "place": "Pagamento"
+    "place": "Pagamento",
+    "profile": "Profilo",
+    "orders": "Ordini",
+    "save": "Salva dati",
+    "orderNumber": "Numero ordine",
+    "items": "Prodotti"
 }

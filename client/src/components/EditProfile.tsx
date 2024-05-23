@@ -66,7 +66,7 @@ const EditProfile: React.FC<propsType> = ({ lng }) => {
                 }}
                 className='w-2/3 text-center text-base p-2.5 h-full transition-all hover:bg-blackish bg-accent rounded-lg text-white'
             >
-                Save changes
+                {t("save")}
             </button>
         </div>
     );

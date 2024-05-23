@@ -10,7 +10,6 @@ interface propsType {
 }
 
 const UserOrders: React.FC<propsType> = async ({ lng }) => {
-    const labelStyles = "block text-base mb-1";
     const { t } = await useTranslation(lng, "checkout");
 
     const session: Session | null = await getServerSession(authOptions);
@@ -45,9 +44,9 @@ const UserOrders: React.FC<propsType> = async ({ lng }) => {
                             href={`/orders/${order.external_id}?items=${order.line_items.length}`}
                             className='flex flex-col justify-between h-full gap-2 px-4 py-5 text-accent hover:text-blackish'
                         >
-                            <p className=''>{`Order number:  ${
+                            <p className=''>{`${t("orderNumber")}:  ${
                                 order.external_id
-                            }  | Items: ${order.line_items.reduce(
+                            }  | ${t("items")}: ${order.line_items.reduce(
                                 (total, product) => total + product.quantity,
                                 0
                             )} `}</p>

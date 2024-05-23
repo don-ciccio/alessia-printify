@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
             phone_number_collection: {
                 enabled: true,
             },
-            billing_address_collection: "required",
+            billing_address_collection: "auto",
 
             line_items: lineItemsList,
 

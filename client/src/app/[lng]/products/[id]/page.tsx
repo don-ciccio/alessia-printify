@@ -92,7 +92,11 @@ const ProductDetails = async ({
                                 {t("description")}
                             </h3>
                             <div className='space-y-3 mt-4 text-base'>
-                                {data.description}
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: data.description,
+                                    }}
+                                />
                             </div>
                         </div>
                         {session && <AddReview id={data.id} lng={params.lng} />}

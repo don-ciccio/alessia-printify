@@ -26,7 +26,7 @@ export async function GET() {
     }
 
     const { data, error } = await client.getAllProducts(shops[0]?.id, {
-        limit: 9,
+        limit: 12,
     });
 
     if (!data) {

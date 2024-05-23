@@ -64,7 +64,7 @@ const Search: React.FC<SearchProps> = async ({ searchParams, params }) => {
                         );
                     })
                 ) : (
-                    <div className='h-screen'>
+                    <div className='h-screen w-full'>
                         <h3 className='text-base text-center'>
                             No products found for &quot;{searchParams.q}&quot;
                         </h3>

@@ -28,7 +28,10 @@ export async function GET(
         });
     }
 
-    const { data, error } = await client.getProducts(shops[0]?.id);
+    const { data, error } = await client.getAllProducts(shops[0]?.id, {
+        limit: 100,
+    });
+
     if (data?.data) {
         let filter = data.data.filter((item: Product) =>
             item.tags.find((item) => item === params.category)

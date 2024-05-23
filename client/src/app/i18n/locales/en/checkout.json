@@ -8,5 +8,10 @@
     "zip": "Zip Code",
     "customer": "Customer Info",
     "phone": "Phone",
-    "place": "Place Order"
+    "place": "Place Order",
+    "profile": "Profile",
+    "orders": "Orders",
+    "save": "Save changes",
+    "orderNumber": "Order number",
+    "items": "Items"
 }
